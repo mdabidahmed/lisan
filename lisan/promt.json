@@ -1,0 +1,3081 @@
+You are a Senior Frontend Architect, Senior React Engineer, UI/UX Designer, Product Designer, Accessibility Engineer, and Performance Engineer.
+
+Build a production-quality Arabic vocabulary and learning web application called:
+
+LISAN
+"Learn Arabic, Grow Closer"
+
+The application must be built using React + TypeScript and should be designed as a scalable real-world product capable of supporting millions of users.
+
+Do NOT create a simple demo.
+Do NOT create a generic dashboard.
+Do NOT use placeholder-looking UI.
+Do NOT use emoji as UI icons.
+Do NOT use browser-default styling.
+
+Build a polished, modern, accessible, responsive Arabic learning application.
+
+==================================================
+1. PRODUCT VISION
+==================================================
+
+Lisan is a free Arabic learning platform focused on:
+
+- Arabic vocabulary
+- Arabic pronunciation
+- Arabic examples
+- Arabic grammar
+- Practice
+- Quizzes
+- Listening
+- Flashcards
+- Progress tracking
+- Bookmarks
+- Spaced repetition
+
+The primary learning experience should be extremely simple:
+
+Discover → Learn → Listen → Practice → Review → Track Progress
+
+The application must support:
+
+Arabic
+English
+Arabic transliteration
+
+Arabic must be displayed correctly using RTL layout.
+
+Arabic vocabulary should preferably contain harakat/tashkeel where appropriate.
+
+Example:
+
+English:
+Apple
+
+Arabic:
+تُفَّاح
+
+Transliteration:
+tuffāḥ
+
+
+==================================================
+2. TECHNOLOGY STACK
+==================================================
+
+Use:
+
+- React
+- TypeScript
+- Vite
+- React Router
+- CSS Modules OR well-structured global CSS
+- TanStack Query
+- Zustand OR React Context
+- React Hook Form
+- Zod
+- Vitest
+- React Testing Library
+- Playwright
+- ESLint
+- Prettier
+
+Do NOT use unnecessary libraries.
+
+Use reusable components.
+
+Use strongly typed TypeScript.
+
+Avoid:
+
+- any
+- duplicated components
+- duplicated CSS
+- hard-coded repeated values
+- giant components
+- giant files
+- unnecessary state
+- prop drilling where inappropriate
+
+
+==================================================
+3. PROJECT ARCHITECTURE
+==================================================
+
+Use a scalable feature-based architecture.
+
+Suggested structure:
+
+src/
+
+  app/
+    App.tsx
+    router.tsx
+    providers/
+
+  components/
+    ui/
+    layout/
+    navigation/
+    vocabulary/
+    quiz/
+    progress/
+    audio/
+    icons/
+
+  features/
+    vocabulary/
+    grammar/
+    practice/
+    progress/
+    bookmarks/
+    settings/
+
+  pages/
+    Home/
+    Vocabulary/
+    WordDetail/
+    Practice/
+    Quiz/
+    QuizResult/
+    Progress/
+    Bookmarks/
+    Settings/
+    NotFound/
+
+  hooks/
+
+  services/
+    api/
+    audio/
+    storage/
+
+  store/
+
+  types/
+
+  data/
+
+  utils/
+
+  constants/
+
+  styles/
+
+  assets/
+
+
+==================================================
+4. DESIGN SYSTEM
+==================================================
+
+Create a complete design system.
+
+Primary brand color:
+
+#1769FF
+
+Supporting colors:
+
+Primary:
+#1769FF
+
+Primary hover:
+#1257D6
+
+Primary light:
+#EAF2FF
+
+Background:
+#F5F7FA
+
+Surface:
+#FFFFFF
+
+Border:
+#E4E8EF
+
+Text primary:
+#172033
+
+Text secondary:
+#667085
+
+Text muted:
+#98A2B3
+
+Success:
+#12B76A
+
+Warning:
+#F79009
+
+Error:
+#F04438
+
+Info:
+#2E90FA
+
+
+==================================================
+5. TYPOGRAPHY
+==================================================
+
+Use a modern UI font for English.
+
+Recommended:
+
+Inter
+
+For Arabic:
+
+Noto Sans Arabic
+
+Fallback:
+
+system-ui
+
+Arabic text must use:
+
+direction: rtl;
+text-align: right;
+
+or appropriate centered alignment for vocabulary cards.
+
+Arabic should be visually large and highly readable.
+
+Vocabulary Arabic:
+
+32px–48px depending on context.
+
+Arabic example sentences:
+
+22px–28px.
+
+Do not use tiny Arabic text.
+
+
+==================================================
+6. LAYOUT
+==================================================
+
+Desktop:
+
+Left sidebar
+Main content
+Top header
+
+Desktop structure:
+
+------------------------------------------------
+| Sidebar | Top Header                         |
+|         |-------------------------------------|
+|         |                                     |
+|         | Main Content                        |
+|         |                                     |
+|         |                                     |
+------------------------------------------------
+
+
+Sidebar:
+
+Logo:
+Lisan
+
+Navigation:
+
+Home
+Vocabulary
+Grammar
+Practice
+Progress
+Bookmarks
+
+Bottom:
+
+Settings
+Profile
+
+
+On mobile:
+
+Sidebar becomes a mobile drawer/bottom navigation.
+
+Main content must use full width.
+
+Never create horizontal scrolling unless intentionally required.
+
+
+==================================================
+7. SIDEBAR
+==================================================
+
+Sidebar width:
+
+250px approximately.
+
+White background.
+
+Subtle right border.
+
+Logo section:
+
+Lisan
+
+Small subtitle:
+
+Learn Arabic, Grow Closer
+
+Navigation items:
+
+Home
+Vocabulary
+Grammar
+Practice
+Progress
+Bookmarks
+
+Each navigation item must contain:
+
+SVG icon
+Label
+
+Active state:
+
+Background:
+#EAF2FF
+
+Text:
+#1769FF
+
+Icon:
+#1769FF
+
+Hover:
+
+Light blue background.
+
+
+==================================================
+8. TOP HEADER
+==================================================
+
+Top header should contain:
+
+Page title
+
+Search
+
+Theme button
+
+Profile
+
+Optional notification area
+
+Header must remain clean.
+
+Do not overcrowd it.
+
+
+==================================================
+9. ICON SYSTEM
+==================================================
+
+Create ONE reusable SVG icon system.
+
+Never use:
+
+❌ emoji
+❌ Unicode symbols
+❌ random icon libraries inside individual components
+
+Use:
+
+currentColor
+
+stroke:
+
+1.8
+
+stroke-linecap:
+
+round
+
+stroke-linejoin:
+
+round
+
+ViewBox:
+
+0 0 24 24
+
+
+Create exactly these 40 icons:
+
+1. Home
+2. Vocabulary
+3. Grammar
+4. Practice
+5. Progress
+6. Search
+7. Theme
+8. Profile
+9. Settings
+10. Volume
+11. Play
+12. Pause
+13. Replay
+14. Bookmark
+15. Favorite
+16. Arrow Left
+17. Arrow Right
+18. Chevron Down
+19. Chevron Right
+20. Check
+21. Close
+22. Info
+23. Alert
+24. Goal
+25. Trophy
+26. Streak
+27. Family
+28. Food
+29. Work
+30. Nature
+31. Travel
+32. Education
+33. Places
+34. Statistics
+35. Study Time
+36. Quiz
+37. Image
+38. Microphone
+39. Keyboard
+40. Flashcard
+
+Create:
+
+Icon.tsx
+
+Example:
+
+<Icon name="home" size={20} />
+
+The icon component must support:
+
+size
+className
+aria-label
+aria-hidden
+title
+
+
+==================================================
+10. ATOMIC DESIGN SYSTEM
+==================================================
+
+Build reusable components.
+
+Atoms:
+
+Button
+IconButton
+Badge
+Avatar
+Input
+Select
+ProgressBar
+Divider
+Tooltip
+Spinner
+
+Molecules:
+
+SearchBox
+AudioButton
+VocabularyMeta
+CategoryBadge
+StatCard
+QuizOption
+ProgressRing
+VocabularyRow
+
+Organisms:
+
+Sidebar
+Topbar
+VocabularyList
+WordCard
+QuizCard
+ProgressOverview
+CategoryGrid
+RecentWords
+DailyGoal
+
+Templates:
+
+DashboardLayout
+LearningLayout
+QuizLayout
+
+
+==================================================
+11. PAGE 1 — HOME
+==================================================
+
+Route:
+
+/
+
+Create a beautiful learning dashboard.
+
+Sections:
+
+1. Welcome section
+
+Example:
+
+Good morning, Abid 👋
+
+Continue your Arabic learning journey.
+
+2. Daily goal
+
+Example:
+
+Daily Goal
+
+12 / 20 words
+
+Progress bar.
+
+3. Current streak
+
+Example:
+
+🔥 7 day streak
+
+4. Quick actions
+
+Learn Vocabulary
+Practice Quiz
+Review Flashcards
+
+5. Continue learning
+
+Show recently studied category.
+
+Example:
+
+Food & Dining
+
+8 / 20 words completed
+
+
+6. Categories
+
+Display category cards.
+
+
+==================================================
+12. PAGE 2 — VOCABULARY LIST
+==================================================
+
+Route:
+
+/vocabulary
+
+This is one of the most important screens.
+
+Header:
+
+Vocabulary
+
+Subtitle:
+
+Build your Arabic vocabulary step by step.
+
+Search box:
+
+Search Arabic or English...
+
+Category filter.
+
+Level filter:
+
+A1
+A2
+B1
+B2
+C1
+C2
+
+Sort:
+
+A-Z
+Recently Added
+Most Practiced
+
+
+Vocabulary rows should look polished.
+
+Each row:
+
+Arabic word
+English meaning
+Transliteration
+Category
+Level
+Audio button
+Bookmark button
+
+Example:
+
+┌───────────────────────────────────────────────┐
+│ تُفَّاح                         🔊       🔖   │
+│ tuffāḥ                                      │
+│ Apple                                       │
+│ Food & Dining                 A1             │
+└───────────────────────────────────────────────┘
+
+
+IMPORTANT INTERACTION:
+
+Clicking the vocabulary row:
+
+→ Navigate to:
+
+/vocabulary/:wordId
+
+Clicking audio:
+
+→ ONLY play audio
+
+Clicking bookmark:
+
+→ ONLY bookmark
+
+Audio and bookmark clicks must NOT navigate.
+
+Use:
+
+event.stopPropagation()
+
+
+==================================================
+13. PAGE 3 — WORD DETAIL
+==================================================
+
+Route:
+
+/vocabulary/:wordId
+
+Example:
+
+Apple
+
+Arabic:
+
+تُفَّاح
+
+Transliteration:
+
+tuffāḥ
+
+Meaning:
+
+Apple
+
+Large Arabic word.
+
+Large audio button:
+
+🔊 Listen
+
+Buttons:
+
+Play
+Replay
+
+Information:
+
+Category:
+Food & Dining
+
+Level:
+A1
+
+Examples:
+
+Arabic:
+
+أُحِبُّ أَنْ آكُلَ التُّفَّاحَ.
+
+English:
+
+I like to eat apples.
+
+
+Add:
+
+Bookmark
+
+Favorite
+
+
+Related vocabulary:
+
+Orange
+Banana
+Grape
+Mango
+
+
+==================================================
+14. AUDIO / PRONUNCIATION
+==================================================
+
+Implement Arabic pronunciation.
+
+MVP:
+
+Browser Web Speech API.
+
+Example:
+
+const utterance =
+  new SpeechSynthesisUtterance(text);
+
+utterance.lang = "ar-SA";
+
+utterance.rate = 0.75;
+
+utterance.pitch = 1;
+
+window.speechSynthesis.cancel();
+
+window.speechSynthesis.speak(utterance);
+
+
+Create:
+
+audioService.ts
+
+
+Functions:
+
+speakArabic(text)
+
+stopSpeech()
+
+pauseSpeech()
+
+resumeSpeech()
+
+
+Handle:
+
+speech unavailable
+voice unavailable
+browser differences
+
+
+Use graceful fallback.
+
+
+Architecture must allow future replacement with:
+
+Pre-generated MP3/WAV
+
+CDN audio
+
+Human recordings
+
+Cloud TTS
+
+
+Do not couple the UI directly to SpeechSynthesis.
+
+
+==================================================
+15. PAGE 4 — PRACTICE
+==================================================
+
+Route:
+
+/practice
+
+Show practice modes.
+
+Cards:
+
+Multiple Choice
+
+Listening
+
+Typing
+
+Image Match
+
+Flashcards
+
+Arabic → English
+
+English → Arabic
+
+
+Each card should show:
+
+SVG icon
+Title
+Description
+Number of questions
+
+
+Example:
+
+Listening
+
+Listen to Arabic pronunciation and select the correct meaning.
+
+10 Questions
+
+
+==================================================
+16. PAGE 5 — QUIZ
+==================================================
+
+Route:
+
+/practice/quiz/:quizId
+
+Create polished quiz interface.
+
+Header:
+
+Question 4 of 10
+
+Progress bar.
+
+Question:
+
+What does this Arabic word mean?
+
+Arabic:
+
+مَطْعَم
+
+Options:
+
+A. School
+B. Restaurant
+C. Hospital
+D. Airport
+
+Only one answer.
+
+States:
+
+Default
+Hover
+Selected
+Correct
+Incorrect
+Disabled
+
+
+Do not reveal answer immediately unless quiz mode requires it.
+
+Include:
+
+Previous
+Next
+
+
+==================================================
+17. LISTENING QUIZ
+==================================================
+
+Example:
+
+Listen to the Arabic word.
+
+[ 🔊 Play ]
+
+Select answer:
+
+A. Book
+B. House
+C. Teacher
+D. Restaurant
+
+
+Allow replay.
+
+Provide visual indication while audio is playing.
+
+
+==================================================
+18. TYPING QUIZ
+==================================================
+
+Question:
+
+Translate:
+
+Apple
+
+Input:
+
+____________________
+
+Expected Arabic:
+
+تُفَّاح
+
+
+Support Arabic keyboard input.
+
+Validate answer.
+
+Ignore harmless differences such as:
+
+extra whitespace
+
+case where appropriate
+
+
+==================================================
+19. IMAGE MATCH QUIZ
+==================================================
+
+Display:
+
+Arabic word:
+
+أَسَد
+
+Then four images.
+
+User selects correct image.
+
+Images must have:
+
+alt text
+
+lazy loading
+
+consistent aspect ratio
+
+rounded corners
+
+
+==================================================
+20. PAGE 6 — QUIZ RESULT
+==================================================
+
+Route:
+
+/practice/result
+
+Display:
+
+Quiz Complete!
+
+Score:
+
+8 / 10
+
+80%
+
+Stats:
+
+Correct
+Incorrect
+Accuracy
+Time
+
+Actions:
+
+Try Again
+
+Review Answers
+
+Back to Practice
+
+
+Do not use excessive animation.
+
+
+==================================================
+21. PAGE 7 — PROGRESS DASHBOARD
+==================================================
+
+Route:
+
+/progress
+
+Show:
+
+Total Words Learned
+
+Words Reviewed
+
+Quiz Accuracy
+
+Current Streak
+
+Longest Streak
+
+Study Time
+
+
+Charts:
+
+Weekly learning
+
+Category progress
+
+Quiz accuracy
+
+Words learned
+
+
+Category progress example:
+
+Food & Dining
+72%
+
+Travel
+45%
+
+Family
+61%
+
+Work
+34%
+
+
+Use accessible charts.
+
+
+==================================================
+22. PAGE 8 — BOOKMARKS
+==================================================
+
+Route:
+
+/bookmarks
+
+Show saved vocabulary.
+
+Search.
+
+Filter.
+
+Each row:
+
+Arabic
+English
+Transliteration
+Audio
+Remove bookmark
+
+
+Empty state:
+
+You haven't bookmarked any words yet.
+
+
+==================================================
+23. PAGE 9 — SETTINGS
+==================================================
+
+Route:
+
+/settings
+
+Sections:
+
+Appearance
+
+Light
+Dark
+System
+
+
+Language:
+
+English
+Arabic
+
+
+Learning:
+
+Daily goal
+
+Quiz preferences
+
+Audio speed
+
+
+Accessibility:
+
+Reduced motion
+
+Larger text
+
+High contrast
+
+
+Account:
+
+Profile
+
+Data
+
+Logout
+
+
+==================================================
+24. VOCABULARY CATEGORIES
+==================================================
+
+Create these categories:
+
+1. Basics
+2. Numbers & Time
+3. Family & People
+4. Food & Dining
+5. Home & Rooms
+6. Shopping & Money
+7. Transport & Travel
+8. Daily Life
+9. Verbs
+10. Adjectives
+11. School & Education
+12. Work & Professions
+13. Nature & Animals
+14. Health & Body
+15. Technology & Media
+16. Abstract & Academic
+17. Expressions & Idioms
+
+
+Each category should have:
+
+id
+name
+Arabic name
+description
+icon
+color
+level
+word count
+progress
+
+
+==================================================
+25. DATA MODEL
+==================================================
+
+Create strong TypeScript types.
+
+Example:
+
+interface VocabularyWord {
+  id: string;
+
+  english: string;
+
+  arabic: string;
+
+  transliteration: string;
+
+  categoryId: string;
+
+  level:
+    | "A1"
+    | "A2"
+    | "B1"
+    | "B2"
+    | "C1"
+    | "C2";
+
+  partOfSpeech?: string;
+
+  audio?: {
+    url?: string;
+    source:
+      | "human"
+      | "tts"
+      | "browser";
+  };
+
+  image?: string;
+
+  examples: {
+    arabic: string;
+    english: string;
+  }[];
+
+  synonyms?: string[];
+
+  relatedWords?: string[];
+
+  tags?: string[];
+}
+
+
+==================================================
+26. USER PROGRESS
+==================================================
+
+Create:
+
+interface WordProgress {
+  wordId: string;
+
+  status:
+    | "new"
+    | "learning"
+    | "review"
+    | "mastered";
+
+  correctAnswers: number;
+
+  incorrectAnswers: number;
+
+  repetitions: number;
+
+  easeFactor?: number;
+
+  intervalDays?: number;
+
+  nextReviewAt?: string;
+
+  lastReviewedAt?: string;
+}
+
+
+==================================================
+27. SPACED REPETITION
+==================================================
+
+Implement an SM-2-inspired system.
+
+Track:
+
+quality
+repetitions
+interval
+ease factor
+next review date
+
+Do NOT overcomplicate the first version.
+
+Create:
+
+srsService.ts
+
+
+Functions:
+
+calculateNextReview()
+
+recordAnswer()
+
+getDueWords()
+
+resetProgress()
+
+
+The architecture should allow a more advanced SRS algorithm later.
+
+
+==================================================
+28. QUIZ DATA MODEL
+==================================================
+
+interface QuizQuestion {
+
+  id: string;
+
+  type:
+    | "multiple-choice"
+    | "listening"
+    | "typing"
+    | "image-match";
+
+  wordId: string;
+
+  question: string;
+
+  options?: string[];
+
+  correctAnswer: string;
+
+  imageOptions?: string[];
+
+}
+
+
+==================================================
+29. API ARCHITECTURE
+==================================================
+
+Prepare frontend services for future backend integration.
+
+Endpoints:
+
+GET /api/categories
+
+GET /api/categories/:id
+
+GET /api/categories/:id/words
+
+GET /api/words/:id
+
+GET /api/words/search?q=
+
+GET /api/quizzes
+
+GET /api/quizzes/:id
+
+POST /api/progress
+
+GET /api/progress
+
+GET /api/bookmarks
+
+POST /api/bookmarks
+
+DELETE /api/bookmarks/:id
+
+
+Do not tightly couple UI to mock data.
+
+Create repository/service abstraction.
+
+
+==================================================
+30. MOCK DATA
+==================================================
+
+Create realistic mock data.
+
+At minimum:
+
+50+ vocabulary words.
+
+Include:
+
+Arabic
+Harakat
+English
+Transliteration
+Category
+Level
+Example sentence
+English translation
+
+Examples:
+
+كِتَاب
+kitāb
+Book
+
+مَدْرَسَة
+madrasa
+School
+
+مَطْعَم
+maṭʿam
+Restaurant
+
+بَيْت
+bayt
+House
+
+مَاء
+māʾ
+Water
+
+طَالِب
+ṭālib
+Student
+
+مُعَلِّم
+muʿallim
+Teacher
+
+سَيَّارَة
+sayyāra
+Car
+
+طَعَام
+ṭaʿām
+Food
+
+شَاي
+shāy
+Tea
+
+
+==================================================
+31. SEARCH
+==================================================
+
+Search must support:
+
+English
+
+Arabic
+
+Transliteration
+
+Example:
+
+Search:
+
+apple
+
+should find:
+
+تُفَّاح
+
+Search:
+
+tuffah
+
+should also find:
+
+تُفَّاح
+
+
+Use debounce.
+
+Do not filter thousands of records on every keystroke unnecessarily.
+
+Prepare architecture for server-side search.
+
+
+==================================================
+32. FILTERING
+==================================================
+
+Vocabulary filters:
+
+Category
+
+Level
+
+Part of speech
+
+Learned
+
+Learning
+
+Mastered
+
+Bookmarked
+
+
+Allow combining filters.
+
+
+==================================================
+33. RESPONSIVE DESIGN
+==================================================
+
+Desktop:
+
+1440px+
+
+Tablet:
+
+768px–1439px
+
+Mobile:
+
+<768px
+
+
+Must work correctly on:
+
+MacBook
+
+Windows desktop
+
+iPad
+
+Android
+
+iPhone
+
+
+Mobile navigation should be redesigned rather than simply shrinking desktop UI.
+
+
+==================================================
+34. ACCESSIBILITY
+==================================================
+
+Target:
+
+WCAG 2.2 AA
+
+
+Requirements:
+
+Keyboard navigation
+
+Visible focus
+
+ARIA labels
+
+Semantic HTML
+
+Accessible buttons
+
+Accessible forms
+
+Accessible dialogs
+
+Screen reader support
+
+Color contrast
+
+Reduced motion
+
+Skip navigation
+
+Proper heading hierarchy
+
+
+Arabic content:
+
+<html lang="en">
+
+Arabic containers:
+
+lang="ar"
+dir="rtl"
+
+
+Do not rely on color alone.
+
+
+==================================================
+35. PERFORMANCE
+==================================================
+
+The application must be designed for millions of users.
+
+Implement:
+
+Route lazy loading
+
+React.lazy
+
+Code splitting
+
+Image lazy loading
+
+Memoization where useful
+
+Virtualized vocabulary lists for large datasets
+
+Debounced search
+
+Caching
+
+TanStack Query
+
+Optimized images
+
+WebP/AVIF where possible
+
+Avoid unnecessary re-renders
+
+Avoid loading all vocabulary at startup
+
+
+Initial bundle must remain small.
+
+
+==================================================
+36. PWA / OFFLINE
+==================================================
+
+Prepare application for PWA.
+
+Offline support:
+
+Previously viewed vocabulary
+
+Saved bookmarks
+
+Basic quiz data
+
+Progress
+
+Audio where available
+
+
+Use IndexedDB for local learning data.
+
+Architecture should allow:
+
+Service Worker
+
+Cache Storage
+
+Background sync
+
+
+==================================================
+37. ERROR STATES
+==================================================
+
+Every page must handle:
+
+Loading
+
+Empty
+
+Error
+
+Success
+
+Partial data
+
+
+Examples:
+
+Loading:
+
+Skeleton UI
+
+Empty:
+
+No vocabulary found.
+
+Error:
+
+Something went wrong.
+Please try again.
+
+
+Never show a blank screen.
+
+
+==================================================
+38. TOAST SYSTEM
+==================================================
+
+Create reusable toast notifications.
+
+Examples:
+
+Word bookmarked
+
+Bookmark removed
+
+Answer saved
+
+Progress updated
+
+Settings saved
+
+
+Toasts must be accessible.
+
+
+==================================================
+39. ANIMATION
+==================================================
+
+Use subtle animation.
+
+Examples:
+
+Card hover
+
+Button press
+
+Progress animation
+
+Page transition
+
+Quiz feedback
+
+
+Avoid excessive animations.
+
+Respect:
+
+prefers-reduced-motion
+
+
+==================================================
+40. DARK MODE
+==================================================
+
+Support:
+
+Light
+
+Dark
+
+System
+
+
+Use CSS variables.
+
+Do not duplicate entire stylesheets.
+
+Example:
+
+--color-bg
+--color-surface
+--color-text
+--color-border
+--color-primary
+
+
+==================================================
+41. SEO
+==================================================
+
+Add:
+
+title
+
+meta description
+
+Open Graph
+
+semantic HTML
+
+robots
+
+sitemap-ready architecture
+
+
+Each vocabulary detail page should have dynamic metadata.
+
+
+==================================================
+42. SECURITY
+==================================================
+
+Follow frontend security best practices.
+
+Never:
+
+store passwords
+
+expose secrets
+
+put API keys in source code
+
+trust HTML from API
+
+use dangerouslySetInnerHTML unnecessarily
+
+
+Sanitize external content.
+
+Environment variables:
+
+.env
+
+.env.example
+
+
+==================================================
+43. TESTING
+==================================================
+
+Unit tests:
+
+Audio service
+
+Search
+
+Filtering
+
+SRS
+
+Quiz scoring
+
+Progress calculation
+
+
+Component tests:
+
+VocabularyRow
+
+AudioButton
+
+QuizOption
+
+ProgressBar
+
+SearchBox
+
+
+E2E tests:
+
+Open vocabulary
+
+Search word
+
+Open word detail
+
+Play pronunciation
+
+Bookmark word
+
+Start quiz
+
+Answer quiz
+
+View result
+
+Check progress
+
+
+Use:
+
+Vitest
+
+React Testing Library
+
+Playwright
+
+
+==================================================
+44. UI STATES
+==================================================
+
+Every interactive component must support:
+
+Default
+
+Hover
+
+Focus
+
+Active
+
+Disabled
+
+Loading
+
+Error
+
+Success
+
+
+Buttons must have:
+
+pointer cursor
+
+focus ring
+
+disabled state
+
+
+==================================================
+45. EMPTY STATES
+==================================================
+
+Design meaningful empty states.
+
+Examples:
+
+No search results
+
+No bookmarks
+
+No quiz history
+
+No progress
+
+No available review words
+
+
+Include:
+
+Icon
+
+Title
+
+Description
+
+Action when appropriate
+
+
+==================================================
+46. DESIGN DETAILS
+==================================================
+
+Border radius:
+
+8px–16px
+
+Cards:
+
+white surface
+
+subtle border
+
+very subtle shadow
+
+Do not use giant shadows.
+
+Spacing:
+
+Use consistent 4px/8px spacing system.
+
+Example:
+
+4
+8
+12
+16
+20
+24
+32
+40
+48
+
+
+Buttons:
+
+Height 40–48px
+
+Primary buttons:
+
+Blue background
+
+White text
+
+
+Secondary:
+
+White background
+
+Border
+
+
+==================================================
+47. VOCABULARY ROW UX
+==================================================
+
+The vocabulary list must feel like a real learning product.
+
+Row:
+
+Left:
+
+Arabic
+
+Middle:
+
+English
+Transliteration
+
+Right:
+
+Audio
+Bookmark
+Chevron
+
+But on RTL-sensitive layouts, ensure logical ordering is correct.
+
+Entire row clickable.
+
+Hover:
+
+Subtle background change.
+
+Keyboard:
+
+Enter/Space opens detail.
+
+Audio button:
+
+Does not open detail.
+
+Bookmark:
+
+Does not open detail.
+
+
+==================================================
+48. WORD DETAIL UX
+==================================================
+
+The most important information must appear above the fold:
+
+Arabic word
+
+Meaning
+
+Transliteration
+
+Pronunciation
+
+Bookmark
+
+
+Then:
+
+Examples
+
+Related words
+
+Category
+
+Level
+
+Learning progress
+
+
+==================================================
+49. HOME DASHBOARD UX
+==================================================
+
+The home page should immediately answer:
+
+What should I learn?
+
+How much have I learned?
+
+What should I review?
+
+How is my progress?
+
+
+Show:
+
+Daily goal
+
+Streak
+
+Continue learning
+
+Review due
+
+Categories
+
+Recent vocabulary
+
+
+==================================================
+50. QUIZ UX
+==================================================
+
+Quiz should feel focused.
+
+Avoid unnecessary navigation.
+
+One question at a time.
+
+Large Arabic text.
+
+Large answer buttons.
+
+Clear progress.
+
+Keyboard accessible.
+
+Support:
+
+1
+2
+3
+4
+
+keyboard shortcuts for options where appropriate.
+
+
+==================================================
+51. LEARNING FLOW
+==================================================
+
+Recommended flow:
+
+Home
+
+↓
+
+Vocabulary
+
+↓
+
+Category
+
+↓
+
+Vocabulary List
+
+↓
+
+Word Detail
+
+↓
+
+Listen
+
+↓
+
+Bookmark
+
+↓
+
+Practice
+
+↓
+
+Quiz
+
+↓
+
+Result
+
+↓
+
+Progress
+
+
+All pages must feel visually connected.
+
+
+==================================================
+52. COMPONENT DOCUMENTATION
+==================================================
+
+Create a Design System page or Storybook-ready structure.
+
+Document:
+
+Buttons
+
+Inputs
+
+Cards
+
+Badges
+
+Icons
+
+Audio controls
+
+Vocabulary rows
+
+Quiz options
+
+Progress bars
+
+Empty states
+
+Loading states
+
+
+==================================================
+53. CODE QUALITY
+==================================================
+
+Follow:
+
+SOLID principles
+
+DRY
+
+Single responsibility
+
+Composition
+
+Reusable hooks
+
+Strong typing
+
+Clean naming
+
+Small components
+
+Predictable state management
+
+
+Avoid:
+
+Huge App.tsx
+
+Huge CSS files
+
+Huge components
+
+Repeated JSX
+
+Magic numbers
+
+Magic strings
+
+
+==================================================
+54. TYPESCRIPT
+==================================================
+
+Enable strict TypeScript.
+
+tsconfig:
+
+strict: true
+
+
+Avoid:
+
+any
+
+unknown without narrowing
+
+unsafe casts
+
+
+Create union types for:
+
+QuizType
+
+Difficulty
+
+LearningStatus
+
+Theme
+
+IconName
+
+CategoryId
+
+
+==================================================
+55. ROUTING
+==================================================
+
+Routes:
+
+/
+ 
+/vocabulary
+
+/vocabulary/:wordId
+
+/practice
+
+/practice/quiz/:quizId
+
+/practice/result
+
+/progress
+
+/bookmarks
+
+/settings
+
+/grammar
+
+/*
+
+
+Use route-level lazy loading.
+
+
+==================================================
+56. GRAMMAR PAGE
+==================================================
+
+Create initial grammar landing page.
+
+Categories:
+
+Nahw
+
+Sarf
+
+Pronouns
+
+Verbs
+
+Nouns
+
+Adjectives
+
+Sentence Structure
+
+Particles
+
+Cases
+
+Verb Forms
+
+
+Each topic should eventually support:
+
+Explanation
+
+Examples
+
+Quiz
+
+Progress
+
+
+==================================================
+57. INTERNATIONALIZATION
+==================================================
+
+Prepare architecture for:
+
+English
+
+Arabic
+
+Future languages
+
+
+Use translation keys.
+
+Do not hard-code UI strings throughout components.
+
+
+==================================================
+58. DATA PERSISTENCE
+==================================================
+
+For MVP:
+
+localStorage / IndexedDB
+
+Persist:
+
+Bookmarks
+
+Progress
+
+Settings
+
+Theme
+
+Daily goal
+
+Quiz history
+
+
+Later backend:
+
+authenticated cloud sync.
+
+
+==================================================
+59. MILLIONS OF USERS
+==================================================
+
+Architecture must support scaling.
+
+Frontend:
+
+CDN
+
+Static assets
+
+Caching
+
+Lazy loading
+
+Code splitting
+
+
+Backend-ready:
+
+Pagination
+
+Cursor-based pagination
+
+Caching
+
+Database indexes
+
+API versioning
+
+Rate limiting
+
+CDN audio
+
+Object storage
+
+Analytics
+
+
+Do not download millions of vocabulary records to browser.
+
+
+==================================================
+60. ANALYTICS-READY
+==================================================
+
+Prepare events:
+
+word_viewed
+
+audio_played
+
+word_bookmarked
+
+quiz_started
+
+quiz_answered
+
+quiz_completed
+
+category_opened
+
+study_session_started
+
+study_session_completed
+
+
+Do not hard-code a specific analytics vendor.
+
+
+==================================================
+61. FINAL UI QUALITY
+==================================================
+
+The final UI must look like a modern commercial SaaS/product application.
+
+Reference visual direction:
+
+Clean
+
+Minimal
+
+Professional
+
+Friendly
+
+Educational
+
+Modern
+
+Blue primary accent
+
+White cards
+
+Soft gray background
+
+Rounded corners
+
+Subtle borders
+
+Clear hierarchy
+
+Excellent Arabic typography
+
+
+Do NOT make it look like:
+
+❌ Admin panel
+❌ Bootstrap demo
+❌ Generic AI-generated dashboard
+❌ Template website
+❌ Crowded enterprise software
+
+
+==================================================
+62. IMPORTANT ICON RULE
+==================================================
+
+Every UI icon must come from the central Icon component.
+
+Never write:
+
+🙂
+🔥
+🔊
+⭐
+←
+→
+✓
+
+as UI icons.
+
+Use SVG icons.
+
+Text symbols may only appear as actual learning content when appropriate.
+
+
+==================================================
+63. IMPORTANT ARABIC RULE
+==================================================
+
+Arabic must be treated as a first-class language.
+
+Correct:
+
+direction: rtl
+
+lang="ar"
+
+Unicode-safe rendering
+
+Noto Sans Arabic
+
+Harakat support
+
+Proper line height
+
+Proper punctuation
+
+
+Arabic examples must not be displayed as plain English text with an RTL hack.
+
+
+==================================================
+64. PERFORMANCE RULE
+==================================================
+
+Do not render all vocabulary records at once.
+
+Use:
+
+pagination
+
+virtualization
+
+lazy loading
+
+cached queries
+
+
+Example:
+
+GET /api/categories/food/words?page=1&limit=30
+
+
+==================================================
+65. RESPONSIVE RULE
+==================================================
+
+Do not simply shrink desktop.
+
+Create intentional mobile layouts.
+
+Mobile:
+
+Header
+
+Search
+
+Cards
+
+Bottom navigation
+
+Large Arabic typography
+
+Full-width quiz options
+
+
+==================================================
+66. MOCK API
+==================================================
+
+Create mock service layer.
+
+Example:
+
+src/services/api/mockApi.ts
+
+
+Functions:
+
+getCategories()
+
+getWords()
+
+getWord(id)
+
+searchWords(query)
+
+getQuiz(id)
+
+getProgress()
+
+saveProgress()
+
+getBookmarks()
+
+toggleBookmark()
+
+
+Later these can be replaced by real HTTP APIs.
+
+
+==================================================
+67. ERROR HANDLING
+==================================================
+
+Create:
+
+ErrorBoundary
+
+API error handling
+
+Retry mechanism
+
+Network offline state
+
+Friendly error messages
+
+
+==================================================
+68. ACCESSIBILITY DETAILS
+==================================================
+
+Audio button:
+
+aria-label="Play pronunciation"
+
+Bookmark:
+
+aria-label="Bookmark word"
+
+Quiz options:
+
+role/radio semantics where appropriate
+
+Keyboard support.
+
+Focus must never disappear.
+
+
+==================================================
+69. LOADING SKELETONS
+==================================================
+
+Create reusable:
+
+VocabularySkeleton
+
+WordDetailSkeleton
+
+QuizSkeleton
+
+DashboardSkeleton
+
+
+Do not show blank white screen while loading.
+
+
+==================================================
+70. FINAL DELIVERABLE
+==================================================
+
+Deliver:
+
+1. Fully working React application
+
+2. TypeScript
+
+3. Responsive UI
+
+4. Routing
+
+5. Reusable components
+
+6. SVG icon system
+
+7. Vocabulary data
+
+8. Audio pronunciation
+
+9. Quiz system
+
+10. Progress tracking
+
+11. Bookmark system
+
+12. Search
+
+13. Filtering
+
+14. Dark mode
+
+15. Accessibility
+
+16. PWA-ready architecture
+
+17. Testing setup
+
+18. Clean architecture
+
+19. Mock API
+
+20. README
+
+
+==================================================
+71. README
+==================================================
+
+README must include:
+
+Project overview
+
+Features
+
+Tech stack
+
+Installation
+
+Development
+
+Build
+
+Testing
+
+Folder structure
+
+Architecture
+
+Adding vocabulary
+
+Adding categories
+
+Adding quiz types
+
+Audio architecture
+
+Deployment
+
+
+==================================================
+72. DEVELOPMENT COMMANDS
+==================================================
+
+Ensure these work:
+
+npm install
+
+npm run dev
+
+npm run build
+
+npm run preview
+
+npm run test
+
+npm run test:e2e
+
+npm run lint
+
+npm run format
+
+
+==================================================
+73. IMPLEMENTATION ORDER
+==================================================
+
+Build in this order:
+
+PHASE 1
+
+Project setup
+
+React
+
+TypeScript
+
+Vite
+
+Routing
+
+Design tokens
+
+
+PHASE 2
+
+Layout
+
+Sidebar
+
+Topbar
+
+Responsive navigation
+
+
+PHASE 3
+
+Icon system
+
+40 SVG icons
+
+Button
+
+Input
+
+Card
+
+Badge
+
+Progress
+
+
+PHASE 4
+
+Vocabulary
+
+Categories
+
+Vocabulary list
+
+Search
+
+Filters
+
+
+PHASE 5
+
+Word detail
+
+Audio
+
+Examples
+
+Bookmark
+
+
+PHASE 6
+
+Practice
+
+Quiz
+
+Listening
+
+Typing
+
+Image match
+
+
+PHASE 7
+
+Progress
+
+SRS
+
+Statistics
+
+
+PHASE 8
+
+Settings
+
+Dark mode
+
+Accessibility
+
+
+PHASE 9
+
+PWA
+
+Offline
+
+IndexedDB
+
+
+PHASE 10
+
+Testing
+
+Performance
+
+Polish
+
+
+==================================================
+74. ACCEPTANCE CRITERIA
+==================================================
+
+The project is complete only when:
+
+[ ] npm install works
+
+[ ] npm run dev works
+
+[ ] npm run build works
+
+[ ] No TypeScript errors
+
+[ ] No ESLint errors
+
+[ ] All routes work
+
+[ ] Sidebar works
+
+[ ] Mobile navigation works
+
+[ ] Vocabulary search works
+
+[ ] Filters work
+
+[ ] Vocabulary rows work
+
+[ ] Word detail works
+
+[ ] Audio works
+
+[ ] Bookmark works
+
+[ ] Quiz works
+
+[ ] Listening quiz works
+
+[ ] Typing quiz works
+
+[ ] Result page works
+
+[ ] Progress works
+
+[ ] Dark mode works
+
+[ ] Keyboard navigation works
+
+[ ] Screen reader labels exist
+
+[ ] Loading states exist
+
+[ ] Error states exist
+
+[ ] Empty states exist
+
+[ ] Responsive design works
+
+[ ] 40 SVG icons exist
+
+[ ] No emoji icons exist
+
+[ ] No unnecessary any types
+
+[ ] No console errors
+
+[ ] No broken links
+
+[ ] No placeholder UI
+
+[ ] README exists
+
+
+==================================================
+75. MOST IMPORTANT INSTRUCTION
+==================================================
+
+Do not stop after creating a visual prototype.
+
+Build the actual working application.
+
+Every button should have meaningful behavior.
+
+Every navigation item should work.
+
+Every vocabulary row should open its detail page.
+
+Audio must actually play.
+
+Bookmark must actually save.
+
+Quiz must actually calculate score.
+
+Progress must actually update.
+
+Search must actually work.
+
+Filters must actually work.
+
+Dark mode must actually work.
+
+Responsive layouts must actually work.
+
+
+==================================================
+76. UI REFERENCE
+==================================================
+
+The visual language should follow this direction:
+
+- Light gray/blue background
+- White content cards
+- Blue #1769FF primary actions
+- Rounded cards
+- Clean sidebar
+- Modern top navigation
+- Large Arabic typography
+- Spacious layout
+- Subtle borders
+- Minimal shadows
+- Professional educational product
+
+Do not copy another product's branding.
+
+Create an original Lisan identity.
+
+
+==================================================
+77. FINAL INSTRUCTION TO THE AI CODING AGENT
+==================================================
+
+Before writing code:
+
+1. Analyze the complete requirements.
+2. Create the architecture.
+3. Create the design tokens.
+4. Create the reusable icon system.
+5. Create reusable components.
+6. Create the routing structure.
+7. Create realistic mock data.
+8. Implement the pages.
+9. Implement interactions.
+10. Implement audio.
+11. Implement progress.
+12. Implement quiz.
+13. Implement responsive layouts.
+14. Implement accessibility.
+15. Implement tests.
+16. Run the build.
+17. Fix all TypeScript errors.
+18. Fix all runtime errors.
+19. Check all routes.
+20. Check mobile responsiveness.
+21. Check Arabic RTL rendering.
+22. Check that no emoji/Unicode icons are used.
+23. Verify exactly 40 icons exist.
+24. Verify all acceptance criteria.
+
+Do not ask unnecessary questions.
+
+Make sensible engineering decisions when something is not explicitly specified.
+
+Prioritize:
+
+1. Correct functionality
+2. Excellent UX
+3. Accessibility
+4. Maintainability
+5. Performance
+6. Scalability
+7. Visual polish
+
+The result should feel like a real product called LISAN, not a coding exercise.
