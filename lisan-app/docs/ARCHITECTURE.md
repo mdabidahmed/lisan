@@ -37,13 +37,13 @@ bundled dataset becomes a real backend. For setup, scripts and deployment see th
 
 Each layer may only call the one below it. The rules, and their exact status today:
 
-| Rule                                                   | Status                                                                                                       |
-| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| Pages never import `@/services`                        | Holds. No production file under `src/pages/` imports the services barrel.                                    |
-| Feature hooks never read `src/data`                    | One exception: `src/features/practice/quizConfig.ts` imports the `practiceModes` array directly (see below). |
+| Rule                                                   | Status                                                                                                                                   |
+| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Pages never import `@/services`                        | Holds. No production file under `src/pages/` imports the services barrel.                                                                |
+| Feature hooks never read `src/data`                    | One exception: `src/features/practice/quizConfig.ts` imports the `practiceModes` array directly (see below).                             |
 | Exactly one module imports the `@/data` barrel         | Holds in production code. `contentSource.ts` is the only one; two tests read it to cross-check it against `src/data/fallbackContent.ts`. |
-| Components never touch `speechSynthesis`               | Holds, and ESLint enforces it (`no-restricted-globals`).                                                     |
-| Nothing but the storage service touches `localStorage` | Holds in production code; tests reach into it directly to assert on what was persisted.                      |
+| Components never touch `speechSynthesis`               | Holds, and ESLint enforces it (`no-restricted-globals`).                                                                                 |
+| Nothing but the storage service touches `localStorage` | Holds in production code; tests reach into it directly to assert on what was persisted.                                                  |
 
 ### The one exception, and why it matters
 

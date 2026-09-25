@@ -98,7 +98,8 @@ function coerceSnapshot(value: unknown): ProgressSnapshot | null {
     quizzesCompleted: count('quizzesCompleted'),
     totalCorrect: count('totalCorrect'),
     totalAnswers: count('totalAnswers'),
-    studyMinutes: typeof minutes === 'number' && Number.isFinite(minutes) ? Math.max(0, minutes) : 0,
+    studyMinutes:
+      typeof minutes === 'number' && Number.isFinite(minutes) ? Math.max(0, minutes) : 0,
   };
 }
 
