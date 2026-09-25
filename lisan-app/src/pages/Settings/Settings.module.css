@@ -1,0 +1,165 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-block-start: var(--space-5);
+  max-width: 520px;
+}
+
+/* ── Appearance · font previews ───────────────────────────────────────────── */
+
+/*
+ * A control plus the sample that shows what it does. Every rule below reads the same token the
+ * rest of the app reads, so the preview is not a mock-up of the setting — it is the setting,
+ * re-rendered the moment the token changes.
+ */
+.fontField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background-color: var(--color-surface-sunken);
+  border: var(--border-width) solid var(--color-border-light);
+  border-radius: var(--radius-md);
+}
+
+.previewLabel {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+}
+
+.previewArabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-arabic);
+  color: var(--color-text-primary);
+}
+
+.previewArabicLine {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-arabic);
+  color: var(--color-text-body);
+}
+
+.previewReading {
+  font-family: var(--font-latin);
+  font-size: var(--font-size-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-body);
+}
+
+.previewTranslit {
+  font-family: var(--font-translit);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-body);
+}
+
+.previewNote {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* ── Data ─────────────────────────────────────────────────────────────────── */
+
+.dataRows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  margin-block-start: var(--space-5);
+}
+
+.dataRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.dataCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  max-width: 62ch;
+}
+
+.dataTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.dataHint {
+  font-size: var(--font-size-xs);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.fileInput {
+  display: none;
+}
+
+.outcome {
+  margin-block-start: var(--space-5);
+}
+
+.issues {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xs);
+}
+
+.confirmBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ── Account ──────────────────────────────────────────────────────────────── */
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-block-start: var(--space-5);
+}
+
+.profileCopy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.profileName {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.profileRole {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 767px) {
+  .dataRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+}

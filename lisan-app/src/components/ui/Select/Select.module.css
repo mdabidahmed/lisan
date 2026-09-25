@@ -1,0 +1,99 @@
+.field {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.fullWidth {
+  display: flex;
+  inline-size: 100%;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-control);
+}
+
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.control:hover:not(.disabled) {
+  border-color: var(--color-border-strong);
+}
+
+.control:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.sm {
+  block-size: var(--control-height-sm);
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  block-size: var(--control-height-md);
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  block-size: var(--control-height-lg);
+  font-size: var(--font-size-base);
+}
+
+.select {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  block-size: 100%;
+  padding-inline: var(--space-4) var(--space-8);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-control);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: inherit;
+  outline: none;
+  appearance: none;
+}
+
+.select:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* The chevron is decoration only — every click has to reach the native control underneath. */
+.chevron {
+  position: absolute;
+  inset-inline-end: var(--space-3);
+  color: var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.disabled {
+  background-color: var(--color-surface-sunken);
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control {
+    transition: none;
+  }
+}

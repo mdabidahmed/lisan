@@ -1,0 +1,147 @@
+.quizRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.modesSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.mode:hover {
+  border-color: var(--color-border-selected);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.modeIcon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+}
+
+.modeTitle {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.modeDescription {
+  flex: 1 1 auto;
+  font-size: var(--font-size-xs);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.modeCount {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.stripActions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.viewAll {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-link);
+}
+
+.viewAll:hover {
+  text-decoration: underline;
+}
+
+.settings,
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-block-start: var(--space-4);
+}
+
+.goalCaption {
+  margin-block: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.goalRow {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.goalBar {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.goalValue {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+.tip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+}
+
+.tipIndex {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  border-radius: var(--radius-circle);
+  flex-shrink: 0;
+}
+
+@media (max-width: 599px) {
+  .modes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mode:hover {
+    transform: none;
+  }
+}

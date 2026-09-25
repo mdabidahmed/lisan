@@ -1,0 +1,35 @@
+/* The glyph sits inside an inscribed circle, so a full round clip matches the reference screens. */
+.mark {
+  border-radius: var(--radius-circle);
+  flex-shrink: 0;
+}
+
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  line-height: 1.15;
+}
+
+.tagline {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  line-height: 1.2;
+  white-space: nowrap;
+}

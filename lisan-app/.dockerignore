@@ -1,0 +1,51 @@
+# Everything the image build must never see. Keeping the context small is what makes the
+# `npm ci` and `COPY src` layers cache reliably.
+
+# Dependencies and build output — reinstalled/rebuilt inside the image.
+node_modules
+dist
+dist-ssr
+dev-dist
+build
+
+# Test and coverage artifacts.
+coverage
+playwright-report
+test-results
+blob-report
+.playwright
+e2e
+playwright.config.ts
+
+# Component preview tooling drops a whole Chrome profile next to the component it rendered.
+# It sits under src/, so without this the `COPY src` layer is invalidated by every preview.
+**/.preview
+
+# VCS and CI.
+.git
+.gitignore
+.github
+
+# Design source material (large PNGs, never shipped).
+design-reference
+
+# Local tooling, editors, OS cruft.
+.vscode
+.idea
+.DS_Store
+.editorconfig
+.eslintcache
+.cache
+.tmp
+*.log
+npm-debug.log*
+
+# Secrets and local env.
+.env
+.env.*
+!.env.example
+
+# Docs and container definitions (nginx.conf is copied explicitly in the runtime stage).
+*.md
+Dockerfile
+.dockerignore

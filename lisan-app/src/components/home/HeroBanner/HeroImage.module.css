@@ -1,0 +1,35 @@
+.media {
+  position: absolute;
+  inset: 0;
+}
+
+.picture {
+  position: absolute;
+  inset: 0;
+}
+
+/*
+  Weighted towards the inline start, where the headline and CTA sit. The right-hand side stays
+  clear so the photograph still reads behind the glass quote card.
+*/
+.scrim {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to right,
+    var(--color-hero-scrim) 0%,
+    color-mix(in srgb, var(--color-hero-scrim) 42%, transparent) 48%,
+    transparent 72%
+  );
+}
+
+@media (max-width: 899px) {
+  /* Stacked layout puts copy over the full width, so the scrim has to cover all of it. */
+  .scrim {
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-hero-scrim) 0%,
+      color-mix(in srgb, var(--color-hero-scrim) 62%, transparent) 100%
+    );
+  }
+}

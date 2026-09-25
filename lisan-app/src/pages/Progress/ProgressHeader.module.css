@@ -1,0 +1,178 @@
+.header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-block: var(--space-6) var(--space-5);
+  padding-inline: var(--space-8);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-light) 0%,
+    color-mix(in srgb, var(--color-primary-light) 60%, var(--color-primary-soft)) 100%
+  );
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-lg);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+  flex: 1 1 340px;
+  max-inline-size: 480px;
+  align-self: center;
+}
+
+.title {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.titleDark {
+  color: var(--color-text-primary);
+}
+
+.titleAccent {
+  color: var(--color-primary);
+}
+
+.spark {
+  inline-size: 26px;
+  block-size: 26px;
+  margin-block-start: 4px;
+  color: var(--color-warning);
+}
+
+.subtitle {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background-color: color-mix(in srgb, var(--color-surface) 85%, transparent);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-xs);
+}
+
+/**
+ * The source file is the whole reference banner (its own title text baked in on the left, an
+ * empty top margin, the character himself, then a thin empty bottom margin). `object-fit` can
+ * only crop one axis at a time, which isn't enough here — the title has to go AND the empty
+ * margins have to go, so this uses `background-size`/`background-position` instead: a fixed
+ * scale (2073⁄614 × his own width, 758⁄640 × his own height) and a fixed anchor point, both
+ * expressed as percentages of the frame so they hold at any frame size. The numbers are just his
+ * bounding box in the untouched source file — nothing is cropped or re-encoded on disk.
+ *
+ * He stays a normal flex item (not absolutely positioned) so he can never bleed past the card's
+ * own edges or overlap the page chrome above it — his height is capped to the header's own
+ * content height at every breakpoint.
+ */
+.mascotFrame {
+  display: block;
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin-block-end: var(--space-2);
+  overflow: hidden;
+  inline-size: 140px;
+  max-block-size: 100%;
+  aspect-ratio: 614 / 640;
+  background-repeat: no-repeat;
+  background-size: 337.6% 118.44%;
+  background-position: 96.5% 86.44%;
+}
+
+@media (min-width: 768px) {
+  .mascotFrame {
+    inline-size: 170px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .mascotFrame {
+    inline-size: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header {
+    padding-block-start: var(--space-8);
+  }
+
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .mascotFrame {
+    inline-size: 100%;
+    max-inline-size: 180px;
+    margin-inline: auto;
+  }
+}
+
+.nextFocus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  color: inherit;
+  text-decoration: none;
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition:
+    box-shadow var(--duration-normal) var(--ease-standard),
+    transform var(--duration-normal) var(--ease-standard);
+}
+
+.nextFocus:hover {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.nextFocusIcon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  inline-size: 40px;
+  block-size: 40px;
+  color: var(--color-accent-red);
+  background-color: var(--color-accent-red-soft);
+  border-radius: var(--radius-circle);
+}
+
+.nextFocusCopy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.nextFocusLabel {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.nextFocusText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.nextFocusChevron {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+[dir='rtl'] .nextFocusChevron {
+  transform: scaleX(-1);
+}

@@ -1,0 +1,12 @@
+/*
+ * Nastaliq sets each word as a diagonal cascade from the top right, so a line occupies far more
+ * vertical space than naskh at the same size and clips against a normal leading. It also renders
+ * visually smaller, hence the Arabic scale rather than the Latin one.
+ */
+.root {
+  display: inline-block;
+  font-family: var(--font-urdu);
+  font-size: var(--font-size-arabic-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-nastaliq);
+}

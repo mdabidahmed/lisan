@@ -1,0 +1,115 @@
+.wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.bubble {
+  position: absolute;
+  z-index: var(--z-tooltip);
+
+  /* ch keeps the bubble roughly one short line wide at any text size. */
+  max-inline-size: 28ch;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  color: var(--color-text-inverse);
+  text-align: center;
+  background-color: var(--color-surface-inverse);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-lg);
+
+  /* Never `visibility: hidden` — the bubble stays in the accessibility tree for aria-describedby. */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+/*
+ * Both insets at 50% collapse the box to a centre line; `max-content` plus auto margins then let
+ * it overflow evenly on either side. Direction-agnostic, so RTL needs no override.
+ */
+.top .bubble,
+.bottom .bubble {
+  inline-size: max-content;
+  inset-inline: 50%;
+  margin-inline: auto;
+}
+
+.top .bubble {
+  inset-block-end: calc(100% + var(--space-2));
+}
+
+.bottom .bubble {
+  inset-block-start: calc(100% + var(--space-2));
+}
+
+/*
+ * A trigger flush against the edge of the viewport (a page-header action, a list row's trailing
+ * button) would push a centred bubble past the edge. `align="end"` anchors the bubble's trailing
+ * edge to the trigger instead, so it grows inward. The arrow is positioned on the wrapper, not the
+ * bubble, so it keeps pointing at the trigger's centre either way.
+ */
+.alignEnd.top .bubble,
+.alignEnd.bottom .bubble {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  margin-inline: 0;
+}
+
+/* Small arrow pointing from the bubble back to its trigger. Lives on the wrapper (not the bubble)
+   so it stays centred on the trigger even when `align="end"` shifts the bubble body sideways. */
+.top::before,
+.bottom::before {
+  content: '';
+  position: absolute;
+  z-index: calc(var(--z-tooltip) + 1);
+  inset-inline-start: 50%;
+  inline-size: var(--space-3);
+  block-size: var(--space-3);
+  margin-inline-start: calc(var(--space-3) / -2);
+  background-color: var(--color-surface-inverse);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-fast) var(--ease-out);
+}
+
+.top::before {
+  inset-block-end: calc(100% + var(--space-2) - 5px);
+}
+
+.bottom::before {
+  inset-block-start: calc(100% + var(--space-2) - 5px);
+  transform: rotate(180deg);
+}
+
+.start .bubble,
+.end .bubble {
+  inline-size: max-content;
+  block-size: max-content;
+  inset-block: 50%;
+  margin-block: auto;
+}
+
+.start .bubble {
+  inset-inline-end: calc(100% + var(--space-2));
+}
+
+.end .bubble {
+  inset-inline-start: calc(100% + var(--space-2));
+}
+
+.wrapper:hover .bubble,
+.wrapper:focus-within .bubble,
+.wrapper:hover::before,
+.wrapper:focus-within::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble {
+    transition: none;
+  }
+}

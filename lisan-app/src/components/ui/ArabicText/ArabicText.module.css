@@ -1,0 +1,14 @@
+/*
+  Bidi isolation for the Arabic run, without a base direction of its own.
+
+  `direction` is inherited rather than declared, so the run starts where the surrounding column
+  starts and mirrors with it if the interface locale ever becomes Arabic. The glyphs still read
+  right to left either way: Arabic is strongly directional and needs no `dir` to lay itself out.
+
+  `isolate` rather than `plaintext` — plaintext infers the base direction from the content, which
+  for an Arabic-initial string resolves to right-to-left and reorders the runs of a mixed-script
+  value all over again. A bare `<bdi>` is out for the same reason: it defaults to `dir="auto"`.
+*/
+.isolate {
+  unicode-bidi: isolate;
+}

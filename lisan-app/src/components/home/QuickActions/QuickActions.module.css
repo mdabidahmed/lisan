@@ -1,0 +1,134 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+/*
+ * Icon, copy and chevron share a single row and are centred against one another, so the card is
+ * only ever as tall as its tallest part. Stacking the chevron under the copy instead costs about
+ * 27px of height that the icon cannot fill, which is what left the old card bottom-heavy.
+ */
+.tile {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: var(--space-4);
+  background-color: var(--tile-soft);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-lg);
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.tile[data-accent='vocabulary'] {
+  --tile-fg: var(--color-tile-vocabulary);
+  --tile-soft: var(--color-tile-vocabulary-soft);
+}
+
+.tile[data-accent='grammar'] {
+  --tile-fg: var(--color-tile-grammar);
+  --tile-soft: var(--color-tile-grammar-soft);
+}
+
+.tile[data-accent='practice'] {
+  --tile-fg: var(--color-tile-practice);
+  --tile-soft: var(--color-tile-practice-soft);
+}
+
+.tile[data-accent='progress'] {
+  --tile-fg: var(--color-tile-progress);
+  --tile-soft: var(--color-tile-progress-soft);
+}
+
+.tile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.iconTile {
+  display: grid;
+  place-items: center;
+  margin-inline-end: var(--space-4);
+  width: 46px;
+  height: 46px;
+  color: var(--color-text-on-accent);
+  background-color: var(--tile-fg);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.description {
+  font-size: var(--font-size-xs);
+  line-height: var(--leading-snug);
+  color: var(--color-text-secondary);
+  /*
+   * Not load-bearing for the copy as it stands: the narrowest the column ever gets is 86px, at
+   * the 480px two-column floor, against a longest word of 59px. It is kept because the failure
+   * it prevents is a word painting over the chevron rather than anything visibly clipped, and
+   * one compound noun from a translation would be enough to cross 86px.
+   */
+  overflow-wrap: break-word;
+}
+
+/*
+ * The copy column grows, which is what carries the chevron out to the trailing edge — so this gap
+ * cannot be an auto margin, as there would be no free space left for it to claim. It is
+ * deliberately `--space-2` and not the `--space-4` beside the icon: every pixel spent here comes
+ * straight off the description's line length, and the longest one clears by only a few pixels.
+ */
+.chevron {
+  display: grid;
+  place-items: center;
+  margin-inline-start: var(--space-2);
+  width: 26px;
+  height: 26px;
+  color: var(--tile-fg);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-circle);
+  flex-shrink: 0;
+}
+
+[dir='rtl'] .chevron svg {
+  transform: scaleX(-1);
+}
+
+/*
+ * Four columns need the `xl` step (1280, BREAKPOINTS.xl), not the `lg` one the rest of the app
+ * drops at. Four tiles share the content column, so each card is a quarter of it: at 1024 that is
+ * 169px, leaving 39px of copy — narrower than the single word "advanced" (55px, 59px at the large
+ * text size). Switching to two columns at 1280 puts the four-column floor at 103px of copy, which
+ * is wider than the two-column floor of 86px, so four columns are never the tightest case.
+ */
+@media (max-width: 1279px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile:hover {
+    transform: none;
+  }
+}

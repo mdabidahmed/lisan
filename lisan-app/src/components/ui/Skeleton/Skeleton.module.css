@@ -1,0 +1,26 @@
+.skeleton {
+  display: block;
+  inline-size: 100%;
+  block-size: var(--space-4);
+  background-color: var(--color-skeleton);
+  background-image: linear-gradient(
+    90deg,
+    var(--color-skeleton) 0%,
+    var(--color-skeleton-highlight) 50%,
+    var(--color-skeleton) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+  animation: lisan-shimmer calc(var(--duration-slower) * 3) var(--ease-standard) infinite;
+}
+
+.circle {
+  border-radius: var(--radius-circle);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    background-image: none;
+    animation: none;
+  }
+}

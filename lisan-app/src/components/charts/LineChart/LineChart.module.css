@@ -1,0 +1,88 @@
+.chart {
+  position: relative;
+  width: 100%;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 240px;
+}
+
+.grid {
+  stroke: var(--color-chart-grid);
+  stroke-width: 1;
+}
+
+.line {
+  fill: none;
+  stroke: var(--color-chart-line);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.gradientFrom {
+  stop-color: var(--color-chart-area-from);
+}
+
+.gradientTo {
+  stop-color: var(--color-chart-area-to);
+}
+
+.axisLabel {
+  fill: var(--color-chart-axis-text);
+  font-family: var(--font-latin);
+  font-size: 11px;
+  text-anchor: end;
+}
+
+.marker {
+  stroke: var(--color-chart-line);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.5;
+}
+
+.point {
+  fill: var(--color-surface);
+  stroke: var(--color-chart-point);
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.hotspots {
+  position: absolute;
+  inset: 0;
+}
+
+.hotspot {
+  position: absolute;
+  inset-block: 0;
+  width: 18px;
+  margin-inline-start: -9px;
+  background: transparent;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: var(--z-raised);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+  color: var(--color-chart-tooltip-text);
+  background-color: var(--color-chart-tooltip-bg);
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-md);
+  transform: translate(-50%, calc(-100% - 10px));
+  pointer-events: none;
+}
+
+.empty {
+  padding: var(--space-8);
+  font-size: var(--font-size-md);
+  text-align: center;
+  color: var(--color-text-muted);
+}

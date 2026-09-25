@@ -1,0 +1,13 @@
+/*
+  An Arabic run inside a line of host-language prose.
+
+  Size only. Language, isolation and the (deliberate) absence of a base direction come from
+  `ArabicText`; the face, weight and leading come from `[lang='ar']` in `global.css`.
+
+  `--font-size-arabic-inline` is relative, so one declaration covers a 12px card summary, a 15px
+  lesson body and a 17px heading, and follows the Appearance panel's large-text setting without
+  needing a second value.
+*/
+.run {
+  font-size: var(--font-size-arabic-inline);
+}

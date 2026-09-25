@@ -1,0 +1,47 @@
+/**
+ * Self-hosted webfonts.
+ *
+ * `@fontsource` ships one file per unicode subset, so importing only the subsets the product
+ * actually renders keeps both the network cost and the service-worker precache small. All faces
+ * use `font-display: swap` (the fontsource default), so first paint never waits on the network.
+ *
+ * Latin UI: Inter variable (weight axis). The variable build only ships a combined stylesheet, but
+ *           each subset is a separate `unicode-range` face, so a Latin reader downloads 48 kB and
+ *           nothing else. Non-Latin subsets are excluded from the service-worker precache and
+ *           handled by the runtime font cache instead.
+ * Arabic:   Noto Naskh Arabic 400/600, arabic subset only. Naskh matches the reference designs and
+ *           reads better than a sans at the large vocabulary sizes.
+ *
+ * The optional faces a learner can switch to (Amiri, Spectral, IBM Plex Mono) and the Urdu face
+ * are deliberately absent: they are fetched after first paint by `src/styles/webfonts`, so a
+ * visitor who never changes a font setting downloads exactly what they download today.
+ */
+
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource/noto-naskh-arabic/arabic-400.css';
+@import '@fontsource/noto-naskh-arabic/arabic-600.css';
+
+/*
+  IndoPak Nastaleeq — the Indo-Pak Quranic script, offered as an Arabic font preference.
+
+  Declared here rather than pulled from a font CDN because we own the URL and the descriptors.
+  Declaring it costs nothing: a `@font-face` rule is inert until something actually sets the
+  family, so the 82 kB file is requested only after a learner picks it and `--font-arabic` starts
+  resolving to it. The service worker keeps it after that (`lisan-remote-fonts`, CacheFirst).
+
+  `unicode-range` is the Arabic blocks and nothing else, so the face can never be pressed into
+  service for Latin text — which also means it can never block it. `font-weight: 400 700` covers
+  the whole range the app asks for with the one file that exists: without it the browser would
+  synthesise a bold, and a smeared nastaleeq is worse than no bold at all.
+*/
+@font-face {
+  font-family: 'IndoPak Nastaleeq';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('https://verses.quran.foundation/fonts/quran/hafs/nastaleeq/indopak/indopak-nastaleeq-waqf-lazim-v4.2.1.woff2')
+    format('woff2');
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E,
+    U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}

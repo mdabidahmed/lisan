@@ -1,0 +1,29 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.svg {
+  display: block;
+  animation: lisan-spin var(--duration-slower) linear infinite;
+}
+
+.track,
+.indicator {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 2.4;
+}
+
+/* The track is the same ink as the indicator so the spinner reads correctly on any surface. */
+.track {
+  opacity: 0.25;
+}
+
+.indicator {
+  stroke-linecap: round;
+  /* r=9 gives a circumference of ~56.5; a 14/57 dash leaves a quarter-turn arc. */
+  stroke-dasharray: 14 57;
+}

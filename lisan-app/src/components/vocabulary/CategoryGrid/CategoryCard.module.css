@@ -1,0 +1,99 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-3);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.card:hover {
+  border-color: var(--color-border-selected);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.thumb {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: var(--accent-fg);
+  background-color: var(--accent-bg);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+/* Illustrations are full-bleed: the tint would otherwise show as a frame around the artwork. */
+.thumb[data-illustrated='true'] {
+  overflow: hidden;
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-fg) 18%, transparent);
+}
+
+.thumbImage {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.copy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arabic {
+  font-family: var(--font-arabic-ui);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.count {
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-muted);
+}
+
+.bar {
+  display: block;
+  margin-block-start: var(--space-2);
+  max-width: 140px;
+}
+
+.action {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: var(--color-primary-contrast);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-circle);
+  flex-shrink: 0;
+}
+
+.card[data-variant='strip'] .arabic {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,170 @@
+.iconButton {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  color: var(--color-text-nav);
+  cursor: pointer;
+  background-color: transparent;
+  border: var(--border-width) solid transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+/* ── Shape & size ──────────────────────────────────────────────────────────── */
+.circle {
+  border-radius: var(--radius-circle);
+}
+
+.rounded {
+  border-radius: var(--radius-sm);
+}
+
+.sm {
+  inline-size: var(--control-height-sm);
+  block-size: var(--control-height-sm);
+}
+
+.md {
+  inline-size: var(--control-height-md);
+  block-size: var(--control-height-md);
+}
+
+.lg {
+  inline-size: var(--control-height-lg);
+  block-size: var(--control-height-lg);
+}
+
+/* ── Variants ──────────────────────────────────────────────────────────────── */
+.primary {
+  color: var(--color-primary-contrast);
+  background-color: var(--color-primary);
+  box-shadow: var(--shadow-primary);
+}
+
+.primary:not(:disabled):hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.primary:not(:disabled):active {
+  background-color: var(--color-primary-active);
+  box-shadow: var(--shadow-xs);
+  transform: translateY(0);
+}
+
+.secondary {
+  color: var(--color-text-nav);
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+.secondary:not(:disabled):hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-selected);
+}
+
+.soft {
+  color: var(--color-text-nav);
+  background-color: var(--color-surface-icon);
+}
+
+.soft:not(:disabled):hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-selected);
+}
+
+.ghost {
+  color: var(--color-text-nav);
+  background-color: transparent;
+}
+
+.ghost:not(:disabled):hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.danger {
+  color: var(--color-primary-contrast);
+  background-color: var(--color-error);
+}
+
+.danger:not(:disabled):hover {
+  background-color: var(--color-error-strong);
+  transform: translateY(-1px);
+}
+
+/* Bookmark toggle: same quiet resting look as `.soft`, but the active (bookmarked) state below
+   turns red instead of blue — a heart reads as "saved", not as a selected filter chip. */
+.bookmark {
+  color: var(--color-text-nav);
+  background-color: var(--color-surface-icon);
+}
+
+.bookmark:not(:disabled):hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-selected);
+}
+
+.secondary:not(:disabled):active,
+.soft:not(:disabled):active,
+.ghost:not(:disabled):active,
+.danger:not(:disabled):active,
+.bookmark:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* ── States ────────────────────────────────────────────────────────────────── */
+.active:not(.primary, .danger) {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  border-color: transparent;
+}
+
+/* Higher specificity than `.active` above so it wins regardless of source order. */
+.iconButton.bookmark.active {
+  color: var(--color-error);
+  background-color: var(--color-error-soft);
+}
+
+.iconButton.bookmark.active:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--color-error) 14%, var(--color-error-soft));
+}
+
+/* The heart glyph is stroke-only by default; fill it once it represents a saved word. */
+.bookmark.active svg path {
+  fill: currentColor;
+}
+
+.iconButton:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+.iconButton:disabled:not(.loading) {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  background-color: var(--color-surface-neutral);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.ghost:disabled:not(.loading) {
+  background-color: transparent;
+}
+
+.loading {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconButton,
+  .iconButton:hover,
+  .iconButton:active {
+    transform: none;
+  }
+}

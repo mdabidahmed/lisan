@@ -1,0 +1,111 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  isolation: isolate;
+}
+
+.inner {
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-10) var(--space-8);
+  min-height: 280px;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: 34rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  border-radius: var(--radius-pill);
+}
+
+.title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.08;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-hero-text);
+  text-shadow: 0 1px 12px var(--color-hero-halo);
+}
+
+.description {
+  font-size: var(--font-size-lg);
+  line-height: var(--leading-snug);
+  color: var(--color-hero-text-muted);
+  text-shadow: 0 1px 10px var(--color-hero-halo);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--control-height-xl);
+  margin-block-start: var(--space-3);
+  padding-inline: var(--space-6);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary-contrast);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-primary);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.cta:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+[data-theme='dark'] .eyebrow {
+  background-color: color-mix(in srgb, var(--color-surface) 86%, transparent);
+}
+
+@media (max-width: 899px) {
+  .inner {
+    flex-direction: column;
+    padding: var(--space-8) var(--space-6);
+  }
+
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+@media (max-width: 479px) {
+  .inner {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .description {
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta:hover {
+    transform: none;
+  }
+}

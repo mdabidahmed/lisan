@@ -1,0 +1,33 @@
+.duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  border-radius: var(--radius-xs);
+}
+
+.viewAll:hover {
+  color: var(--color-primary-hover);
+}
+
+[dir='rtl'] .viewAll svg {
+  transform: scaleX(-1);
+}
+
+.strip {
+  margin-block-start: var(--space-4);
+}
+
+@media (max-width: 899px) {
+  .duo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

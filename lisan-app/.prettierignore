@@ -1,0 +1,11 @@
+dist
+coverage
+node_modules
+playwright-report
+test-results
+dev-dist
+design-reference
+package-lock.json
+
+# Scratch browser profiles used for local visual rendering
+**/.preview

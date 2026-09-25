@@ -1,0 +1,65 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+
+.flame {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  color: var(--color-warning);
+  background-color: var(--color-warning-soft);
+  border-radius: var(--radius-circle);
+}
+
+.count {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+.message {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-2);
+  width: 100%;
+  margin-block-start: var(--space-4);
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-neutral);
+  border-radius: var(--radius-circle);
+}
+
+.dotActive {
+  color: var(--color-primary-contrast);
+  background-color: var(--color-primary);
+}
+
+.dayLabel {
+  font-size: var(--font-size-2xs);
+  color: var(--color-text-muted);
+}

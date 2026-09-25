@@ -1,0 +1,35 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--space-5) var(--space-4);
+  background-color: var(--color-surface);
+  border-inline-end: var(--border-width) solid var(--color-border);
+}
+
+.brand {
+  padding-inline: var(--space-2);
+  padding-block-end: var(--space-6);
+}
+
+.brandLink {
+  display: inline-flex;
+  border-radius: var(--radius-md);
+}
+
+.nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.footer {
+  flex-shrink: 0;
+  padding-block-start: var(--space-5);
+}
+
+/* The drawer variant is already inside a fixed positioned panel. */
+.drawer {
+  border-inline-end: none;
+}

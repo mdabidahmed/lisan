@@ -1,0 +1,127 @@
+.topbar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: var(--layout-topbar-height);
+  padding-inline: var(--space-6);
+  background-color: var(--color-surface);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.start,
+.end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.end {
+  flex: 1 1 auto;
+  justify-content: flex-end;
+}
+
+.menuButton,
+.mobileBrand {
+  display: none;
+}
+
+.nav {
+  min-width: 0;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-height-sm);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-nav);
+  border-radius: var(--radius-xs);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.navLink:hover {
+  color: var(--color-text-primary);
+}
+
+.navLinkActive,
+.navLinkActive:hover {
+  color: var(--color-primary);
+}
+
+.navLinkActive::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--space-2);
+  inset-block-end: calc(var(--space-4) * -1 + 2px);
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-pill);
+}
+
+.search {
+  flex: 0 1 320px;
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .search {
+    flex-basis: 220px;
+  }
+
+  .navList {
+    gap: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .topbar {
+    padding-inline: var(--layout-gutter-mobile);
+    gap: var(--space-2);
+  }
+
+  .menuButton,
+  .mobileBrand {
+    display: inline-flex;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .search {
+    flex-basis: auto;
+    flex-shrink: 1;
+  }
+}
+
+@media (max-width: 479px) {
+  .mobileBrand {
+    display: none;
+  }
+
+  /*
+   * The font switcher is kept at this width rather than dropped, because below 480px is every
+   * phone in common use, and a phone is where a learner is most likely to want a different Arabic
+   * face. It is a full-size control like the toggle beside it, so nothing here shrinks a tap
+   * target: the wordmark's slot and 4px off each gap pay for it, and the search box — the one
+   * item in the bar that is not `flex-shrink: 0` — yields the rest. That leaves search about
+   * 150px at 375px, enough for the magnifier and a truncated placeholder.
+   */
+  .end {
+    gap: var(--space-2);
+  }
+}

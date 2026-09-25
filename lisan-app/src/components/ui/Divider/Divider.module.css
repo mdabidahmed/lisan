@@ -1,0 +1,36 @@
+.horizontal {
+  inline-size: 100%;
+  block-size: var(--border-width);
+  background-color: var(--color-border);
+  border: 0;
+}
+
+.vertical {
+  align-self: stretch;
+  inline-size: var(--border-width);
+  min-block-size: var(--space-4);
+  background-color: var(--color-border);
+  border: 0;
+}
+
+.labelled {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  inline-size: 100%;
+}
+
+.rule {
+  flex: 1 1 auto;
+  block-size: var(--border-width);
+  background-color: var(--color-border);
+}
+
+.label {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-caps);
+  white-space: nowrap;
+}

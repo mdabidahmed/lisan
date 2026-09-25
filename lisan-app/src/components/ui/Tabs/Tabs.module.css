@@ -1,0 +1,84 @@
+.root {
+  display: flex;
+  align-items: center;
+  max-inline-size: 100%;
+}
+
+.tab {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.tab:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* ── Segmented (word detail, reference screen 3) ─────────────────────────── */
+.segmented {
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background-color: var(--color-surface-blue-gray);
+  border-radius: var(--radius-md);
+}
+
+.segmented .tab {
+  flex: 1 1 0;
+  min-block-size: var(--control-height-md);
+  padding-inline: var(--space-4);
+  color: var(--color-text-nav);
+  border-radius: var(--radius-sm);
+}
+
+.segmented .tab:hover:not(:disabled):not(.selected) {
+  color: var(--color-text-primary);
+}
+
+.segmented .selected {
+  color: var(--color-primary);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ── Underline (topbar, reference screens 1 and 4) ───────────────────────── */
+.underline {
+  gap: var(--space-6);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.underline .tab {
+  min-block-size: var(--control-height-lg);
+  padding: 0;
+  color: var(--color-text-nav);
+  border-block-end: 2px solid transparent;
+}
+
+.underline .tab:hover:not(:disabled) {
+  color: var(--color-text-primary);
+}
+
+.underline .selected {
+  color: var(--color-primary);
+  border-block-end-color: var(--color-primary);
+}
+
+.panel {
+  outline-offset: 4px;
+}
+
+.panel[hidden] {
+  display: none;
+}

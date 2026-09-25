@@ -1,0 +1,85 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-6) var(--space-6);
+  text-align: center;
+  border-radius: var(--radius-lg);
+  /* This is a read-only quote, never an editable field — no blinking text-insertion caret. */
+  caret-color: transparent;
+}
+
+.arabic {
+  position: relative;
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-arabic);
+  color: var(--color-text-primary);
+}
+
+.english {
+  position: relative;
+  padding-block-start: var(--space-3);
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  color: var(--color-text-secondary);
+  border-block-start: 1px solid var(--color-border);
+}
+
+.plain {
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.tinted {
+  background-color: var(--color-primary-light);
+  border: var(--border-width) solid var(--color-border-selected);
+}
+
+/*
+ * A genuine glass surface — low-opacity fill, heavier blur+saturate so the photo behind still
+ * reads through, a soft inner highlight along the top edge (light catching the "glass"), and a
+ * warm shadow so it lifts off the hero image instead of reading as a flat sticker. The oversized
+ * quotation mark ties it to the words it is actually quoting.
+ */
+.glass {
+  border-radius: var(--radius-xl);
+  background-color: color-mix(in srgb, var(--color-surface) 62%, transparent);
+  border: 1px solid color-mix(in srgb, white 45%, transparent);
+  box-shadow:
+    0 16px 40px -12px rgb(0 0 0 / 35%),
+    inset 0 1px 0 color-mix(in srgb, white 50%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+}
+
+.glass::before {
+  content: '\201C';
+  position: absolute;
+  inset-block-start: -0.35em;
+  inset-inline-start: var(--space-4);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 4rem;
+  font-style: normal;
+  line-height: 1;
+  color: var(--color-accent-amber);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.glass .english {
+  border-block-start-color: color-mix(in srgb, white 35%, transparent);
+}
+
+[data-theme='dark'] .glass {
+  background-color: color-mix(in srgb, var(--color-surface) 45%, transparent);
+  border-color: color-mix(in srgb, white 18%, transparent);
+}
+
+@media (max-width: 767px) {
+  .arabic {
+    font-size: var(--font-size-arabic-md);
+  }
+}

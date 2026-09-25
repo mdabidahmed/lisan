@@ -1,0 +1,72 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.root[data-open='true'] {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-drawer-backdrop);
+  background-color: var(--color-overlay);
+  opacity: 0;
+  cursor: default;
+  transition:
+    opacity var(--duration-normal) var(--ease-standard),
+    visibility var(--duration-normal) var(--ease-standard);
+}
+
+.root[data-open='true'] .backdrop {
+  opacity: 1;
+}
+
+.panel {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: var(--z-drawer);
+  display: flex;
+  flex-direction: column;
+  width: min(300px, 86vw);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-xl);
+  transform: translateX(-102%);
+  transition: transform var(--duration-normal) var(--ease-standard);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+[dir='rtl'] .panel {
+  transform: translateX(102%);
+}
+
+.root[data-open='true'] .panel {
+  transform: translateX(0);
+}
+
+.close {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-3) var(--space-3) 0;
+}
+
+/* The drawer is the mobile-only affordance; never render it on desktop. */
+@media (min-width: 768px) {
+  .root {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .backdrop {
+    transition: none;
+  }
+}

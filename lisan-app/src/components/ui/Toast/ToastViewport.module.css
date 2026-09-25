@@ -1,0 +1,23 @@
+.root {
+  position: fixed;
+  inset-block-end: var(--space-6);
+  inset-inline-end: var(--space-6);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.root > * {
+  pointer-events: auto;
+}
+
+@media (width <= 640px) {
+  .root {
+    inset-block-end: calc(var(--layout-mobile-nav-height) + var(--space-4));
+    inset-inline: var(--space-4);
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lisan — Atomic Component Library</title>
+<style>
+:root{
+  --primary:#1769ff;--primary-dark:#0d56d8;--primary-soft:#e8f1ff;
+  --ink:#10203b;--text:#243653;--muted:#718096;--line:#e4eaf2;
+  --bg:#f4f7fb;--surface:#fff;--success:#20a878;--warning:#f59e0b;
+  --danger:#ef5b5b;--purple:#8b5cf6;--shadow:0 8px 26px rgba(23,42,72,.07);
+  --radius-sm:9px;--radius-md:13px;--radius-lg:18px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;background:#fff;border-right:1px solid var(--line);padding:22px 15px;overflow:auto}
+.brand{display:flex;gap:10px;align-items:center;padding:0 10px 25px}
+.brand-mark{width:31px;height:31px;border-radius:9px;background:var(--primary);color:#fff;display:grid;place-items:center;font-weight:800}
+.brand-name{font-weight:800;font-size:18px}.brand-sub{font-size:9px;color:var(--muted);margin-top:2px}
+.library-title{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#9aa6b6;padding:12px 12px 7px}
+.component-list{display:grid;gap:4px}
+.component-item{width:100%;border:0;background:transparent;text-align:left;padding:10px 11px;border-radius:10px;color:#526176;display:flex;gap:10px;align-items:center}
+.component-item:hover,.component-item.active{background:var(--primary-soft);color:var(--primary);font-weight:700}
+.component-icon{width:22px;text-align:center}
+.main{min-width:0}
+.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:5}
+.breadcrumb{font-size:13px;color:var(--muted)}.breadcrumb strong{color:var(--ink)}
+.top-actions{display:flex;gap:9px;align-items:center}
+.round{width:37px;height:37px;border:1px solid var(--line);border-radius:50%;background:#fff;display:grid;place-items:center}
+.avatar{background:var(--ink);color:#fff;border:0;font-weight:700}
+.content{padding:30px;max-width:1450px}
+.component-header{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:22px}
+h1{font-size:32px;letter-spacing:-.8px;margin:0 0 7px}.intro{margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.tag{display:inline-flex;padding:6px 10px;border-radius:999px;background:var(--primary-soft);color:var(--primary);font-size:11px;font-weight:700}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:18px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.preview{padding:24px;min-height:430px}.panel-title{font-size:13px;font-weight:800;margin-bottom:17px;display:flex;justify-content:space-between;align-items:center}
+.preview-stage{min-height:340px;background:linear-gradient(135deg,#f8fbff,#eef5ff);border:1px dashed #d6e1ef;border-radius:15px;padding:30px;display:flex;align-items:center;justify-content:center}
+.properties{padding:22px}.prop-group{border-bottom:1px solid var(--line);padding:0 0 15px;margin-bottom:15px}.prop-group:last-child{border:0;margin:0}.prop-group h3{font-size:12px;margin:0 0 10px}.prop-row{display:grid;grid-template-columns:105px 1fr;gap:10px;font-size:12px;margin:7px 0}.prop-key{color:var(--muted)}.prop-value{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#344054;overflow-wrap:anywhere}
+.code-panel{margin-top:18px;padding:22px}.code-tabs{display:flex;gap:7px;margin-bottom:13px}.code-tab{border:0;background:#eef3f9;border-radius:8px;padding:8px 11px;font-size:12px}.code-tab.active{background:var(--primary);color:#fff}.code{margin:0;background:#111b2d;color:#dce7ff;border-radius:12px;padding:18px;overflow:auto;font:12px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre}
+.copy{border:0;background:#eef3f9;border-radius:8px;padding:7px 10px;font-size:11px}
+
+/* shared component previews */
+.demo-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.demo-stack{display:grid;gap:12px;width:min(100%,650px)}
+.btn{border:0;border-radius:9px;padding:11px 18px;font-weight:750}.btn-primary{background:var(--primary);color:#fff;box-shadow:0 7px 18px rgba(23,105,255,.20)}.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}.btn-secondary{background:#edf2f8;color:#35445b}.btn-outline{background:#fff;border:1px solid var(--primary);color:var(--primary)}
+.icon-btn{width:40px;height:40px;border:1px solid var(--line);background:#fff;border-radius:50%;display:grid;place-items:center}.icon-btn.blue{background:var(--primary);color:#fff;border:0}
+.nav-demo{width:260px;background:#fff;border:1px solid var(--line);padding:8px;border-radius:12px}.nav-demo-item{padding:11px;border-radius:9px;display:flex;gap:10px}.nav-demo-item.active{background:var(--primary-soft);color:var(--primary);font-weight:700}
+.card-demo{padding:22px;background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow);width:min(100%,560px)}
+.search-demo{position:relative;width:min(100%,560px)}.search-demo input{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px 12px 39px;outline:0;background:#fff}.search-demo span{position:absolute;left:14px;top:10px;color:var(--muted)}
+.chips-demo{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;color:#526176;border-radius:999px;padding:8px 14px}.chip.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.arabic-demo{font-family:"Noto Naskh Arabic","Amiri","Scheherazade New",serif;direction:rtl;font-size:52px;line-height:1.6}
+.word-row-demo{display:flex;align-items:center;gap:14px;padding:12px;background:#fff;border:1px solid var(--line);border-radius:13px;width:min(100%,650px)}.thumb{width:64px;height:64px;border-radius:11px;background:#dfeeff;object-fit:cover}.word-copy{flex:1}.word-ar{font-family:"Noto Naskh Arabic","Amiri",serif;direction:rtl;font-size:27px}.muted{color:var(--muted);font-size:12px}.meaning{font-size:13px}
+.audio{width:43px;height:43px;border:0;border-radius:50%;background:var(--primary);color:#fff}.heart{border:0;background:#f3f7fc;border-radius:50%;width:40px;height:40px;color:#526176;font-size:20px}
+.tabs-demo{display:flex;background:#edf3fb;border-radius:10px;padding:3px;gap:3px;width:min(100%,600px)}.tab{flex:1;border:0;background:transparent;padding:11px;border-radius:8px;font-weight:700;color:#53627a}.tab.active{background:#fff;color:var(--primary);box-shadow:0 2px 8px rgba(30,50,80,.07)}
+.detail-row-demo{width:min(100%,650px);background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}.detail-line{display:grid;grid-template-columns:150px 1fr;padding:14px;border-bottom:1px solid var(--line);font-size:13px}.detail-line:last-child{border:0}
+.progress-demo{width:min(100%,600px)}.progress-track{height:9px;background:#e8edf4;border-radius:99px;overflow:hidden}.progress-fill{height:100%;background:var(--primary);border-radius:inherit}
+.stat-demo{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:min(100%,650px)}.stat{padding:17px;background:#fff;border:1px solid var(--line);border-radius:13px}.stat-icon{font-size:22px}.stat-number{font-size:25px;font-weight:800;margin-top:7px}.stat-label{font-size:11px;color:var(--muted)}
+.answers-demo{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(100%,560px)}.answer{border:1px solid var(--line);background:#fff;padding:13px;border-radius:10px}.answer.correct{border-color:#20a878;background:#eaf9f3}
+.alert{padding:13px 15px;border-radius:10px;background:var(--primary-soft);color:#244c91;font-size:12px;width:min(100%,600px)}
+.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700;background:#eaf9f3;color:#16845a}.badge.orange{background:#fff1da;color:#a76500}.badge.purple{background:#f0eaff;color:#6841c6}
+.image-demo{width:220px;height:150px;border-radius:15px;background:linear-gradient(135deg,#cde2ff,#eef6ff);display:grid;place-items:center;font-size:50px}
+.dropdown-demo{border:1px solid var(--line);background:#fff;border-radius:10px;padding:11px 14px;display:inline-flex;gap:30px;align-items:center}
+.quote-demo{font-family:Georgia,serif;font-size:26px;text-align:center;background:#fff;padding:28px;border-radius:15px;border:1px solid var(--line);width:min(100%,600px)}
+.toast-demo{background:#10203b;color:#fff;padding:13px 17px;border-radius:10px;box-shadow:var(--shadow);font-size:12px}
+
+/* Color Palette */
+.palette{display:grid;gap:18px;width:100%;max-width:900px}
+.palette-section{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}
+.palette-section h3{font-size:13px;margin:0 0 12px}.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:10px}
+.swatch{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#fff}
+.swatch-color{height:72px;display:flex;align-items:center;justify-content:center;position:relative;font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.45)}.swatch-info{padding:9px 10px}.swatch-name{font-size:11px;font-weight:800}.swatch-value{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);margin-top:3px}.swatch-use{font-size:10px;color:#667085;margin-top:5px;line-height:1.35}
+.palette-token{display:inline-flex;align-items:center;gap:7px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;background:#f4f7fb;padding:7px 9px;border-radius:7px;margin:3px;border:1px solid #E4EAF2}.palette-token b{color:#10203B}
+
+@media(max-width:950px){.detail-grid{grid-template-columns:1fr}.app{grid-template-columns:210px 1fr}}
+@media(max-width:700px){.app{display:block}.sidebar{position:static;height:auto}.topbar{position:static}.content{padding:18px}.detail-grid{grid-template-columns:1fr}.preview-stage{padding:18px}.answers-demo,.stat-demo{grid-template-columns:1fr}.prop-row{grid-template-columns:90px 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">L</div><div><div class="brand-name">Lisan</div><div class="brand-sub">Learn Arabic, Grow Closer</div></div></div>
+  <div class="library-title">Atomic Components</div>
+  <div id="componentList" class="component-list"></div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="breadcrumb">Lisan UI / <strong id="crumb">Buttons</strong></div>
+    <div class="top-actions"><button class="round">⌕</button><button class="round">☼</button><button class="round avatar">S</button></div>
+  </header>
+
+  <div class="content">
+    <div class="component-header">
+      <div><div class="tag">ATOMIC DESIGN SYSTEM</div><h1 id="title">Buttons</h1><p class="intro" id="description"></p></div>
+    </div>
+
+    <div class="detail-grid">
+      <section class="panel preview">
+        <div class="panel-title"><span>Live Preview</span><span id="componentType" class="tag">Interactive</span></div>
+        <div id="previewStage" class="preview-stage"></div>
+      </section>
+
+      <aside class="panel properties">
+        <div class="panel-title">Component Properties</div>
+        <div id="properties"></div>
+      </aside>
+    </div>
+
+    <section class="panel code-panel">
+      <div class="panel-title"><span>Implementation</span><button id="copyBtn" class="copy">Copy code</button></div>
+      <div class="code-tabs"><button class="code-tab active">HTML</button><button class="code-tab">CSS</button><button class="code-tab">Usage</button></div>
+      <pre id="code" class="code"></pre>
+    </section>
+  </div>
+</main>
+</div>
+
+<script>
+const components = {
+  button:{
+    name:"Button",type:"Atom",desc:"Primary action control used for Start Learning, Next, Premium and other high-priority actions.",
+    props:{Variant:"Primary / Secondary / Outline",Color:"#1769FF",Text:"Start Learning",Height:"42px",Radius:"9px",Font:"14px / 750",Padding:"11px 18px",Effect:"Hover lift + blue shadow",Focus:"Keyboard focus ring"},
+    preview:()=>`<div class="demo-row"><button class="btn btn-primary">Start Learning →</button><button class="btn btn-secondary">Secondary</button><button class="btn btn-outline">Outline</button></div>`,
+    code:`<button class="btn btn-primary">Start Learning →</button>\n\n.btn-primary {\n  background: #1769FF;\n  color: #FFFFFF;\n  border-radius: 9px;\n  padding: 11px 18px;\n  font-weight: 750;\n  box-shadow: 0 7px 18px rgba(23,105,255,.20);\n}`
+  },
+  iconButton:{
+    name:"Icon Button",type:"Atom",desc:"Circular compact action used for audio, search, theme, profile and contextual controls.",
+    props:{Size:"40 × 40px",Color:"#1769FF for primary",Radius:"50%",Border:"1px solid #E4EAF2",Icon:"16–20px",Effect:"Hover background / lift",Accessibility:"aria-label required"},
+    preview:()=>`<div class="demo-row"><button class="icon-btn blue">▶</button><button class="icon-btn">⌕</button><button class="icon-btn">☼</button><button class="heart">♡</button></div>`,
+    code:`<button class="icon-btn blue" aria-label="Play pronunciation">▶</button>\n\n.icon-btn {\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  background: #1769FF;\n  color: #FFF;\n}`
+  },
+  navItem:{
+    name:"Navigation Item",type:"Atom",desc:"Sidebar navigation item used throughout the Lisan application.",
+    props:{Height:"40px",Radius:"10px",Padding:"10px 11px",ActiveBg:"#E8F1FF",ActiveColor:"#1769FF",Gap:"10px",Font:"14px / 700",Transition:"150ms"},
+    preview:()=>`<div class="nav-demo"><div class="nav-demo-item active">▣ <span>Vocabulary</span></div><div class="nav-demo-item">✎ <span>Practice</span></div><div class="nav-demo-item">▥ <span>Progress</span></div></div>`,
+    code:`<button class="nav-item active">▣ <span>Vocabulary</span></button>\n\n.nav-item.active {\n  background: #E8F1FF;\n  color: #1769FF;\n  border-radius: 10px;\n}`
+  },
+  card:{
+    name:"Card",type:"Molecule",desc:"Core surface container used for goals, quizzes, statistics, details and content blocks.",
+    props:{Background:"#FFFFFF",Border:"#E4EAF2",Radius:"18px",Shadow:"0 8px 26px rgba(23,42,72,.07)",Padding:"22px",Hover:"Optional translateY(-1px)",Surface:"White"},
+    preview:()=>`<div class="card-demo"><b>Today's Goal</b><p class="muted">Learn 10 new Arabic words</p><div class="progress-track"><div class="progress-fill" style="width:42%"></div></div></div>`,
+    code:`<section class="card">\n  <strong>Today's Goal</strong>\n  <p>Learn 10 new Arabic words</p>\n</section>\n\n.card {\n  background: #FFF;\n  border: 1px solid #E4EAF2;\n  border-radius: 18px;\n  box-shadow: 0 8px 26px rgba(23,42,72,.07);\n}`
+  },
+  search:{
+    name:"Search Field",type:"Molecule",desc:"Search control used on the Vocabulary page and global navigation.",
+    props:{Height:"46px",Radius:"10px",Background:"#FFFFFF",Border:"#E4EAF2",Placeholder:"Search words (e.g. teacher, book, food...)",Icon:"Search 18px",Focus:"Blue border"},
+    preview:()=>`<div class="search-demo"><span>⌕</span><input value="" placeholder="Search words (e.g. teacher, book, food...)"></div>`,
+    code:`<div class="search">\n  <span>⌕</span>\n  <input placeholder="Search words..." />\n</div>`
+  },
+  chip:{
+    name:"Category Chip",type:"Atom",desc:"Compact category filter used for Family, Food, Professions, Nature, Travel and other vocabulary groups.",
+    props:{Height:"36px",Radius:"999px",Padding:"8px 14px",DefaultBg:"#FFFFFF",ActiveBg:"#1769FF",ActiveColor:"#FFFFFF",Border:"#E4EAF2",Font:"12px / 700"},
+    preview:()=>`<div class="chips-demo"><button class="chip">Family</button><button class="chip">Food</button><button class="chip active">Professions</button><button class="chip">Nature</button><button class="chip">Travel</button></div>`,
+    code:`<button class="chip active">Professions</button>\n\n.chip.active {\n  background: #1769FF;\n  color: #FFF;\n  border-color: #1769FF;\n}`
+  },
+  arabicWord:{
+    name:"Arabic Word",type:"Atom",desc:"Primary Arabic typography component. Used for vocabulary, titles, examples and pronunciation text.",
+    props:{FontFamily:"Noto Naskh Arabic / Amiri / Scheherazade New",Direction:"rtl",Size:"52px detail / 27px list",LineHeight:"1.6",Color:"#10203B",Language:"ar",Features:"Arabic shaping + ligatures",Harakat:"Stored as Unicode combining marks"},
+    preview:()=>`<div class="demo-stack"><div class="arabic-demo">الْمُهَنْدِسُ</div><div class="arabic-demo" style="font-size:34px">الْمُهَنْدِسُ يَبْنِي الْمَبَانِيَ.</div></div>`,
+    code:`<div class="arabic" lang="ar" dir="rtl">الْمُهَنْدِسُ</div>\n\n.arabic {\n  font-family: "Noto Naskh Arabic", "Amiri", serif;\n  direction: rtl;\n  font-size: 52px;\n  line-height: 1.6;\n}`
+  },
+  wordRow:{
+    name:"Vocabulary Row",type:"Molecule",desc:"Reusable vocabulary list item combining image, Arabic word, transliteration, meaning, audio and bookmark.",
+    props:{Height:"88px",Image:"64 × 64px",Radius:"13px",Gap:"14px",Arabic:"27px",Audio:"40px circle",Favorite:"40px circle",Hover:"Soft blue background",Clickable:"Yes — opens Word Detail"},
+    preview:()=>`<div class="word-row-demo"><div class="thumb">👷</div><div class="word-copy"><div class="word-ar">الْمُهَنْدِسُ</div><div class="muted">al-muhandisu</div><div class="meaning">Engineer</div></div><button class="audio">▶</button><button class="heart">♡</button></div>`,
+    code:`<article class="word-row">\n  <img class="thumb" />\n  <div class="word-copy">\n    <div class="word-ar">الْمُهَنْدِسُ</div>\n    <small>al-muhandisu</small>\n    <div>Engineer</div>\n  </div>\n  <button class="audio">▶</button>\n  <button class="heart">♡</button>\n</article>`
+  },
+  audio:{
+    name:"Audio Control",type:"Atom",desc:"Pronunciation control used beside Arabic vocabulary and example sentences.",
+    props:{Size:"43px",Shape:"Circle",Background:"#1769FF",Icon:"Play",Action:"Play Arabic audio",Hover:"Darken + lift",Focus:"Visible keyboard focus",Label:"Listen to pronunciation"},
+    preview:()=>`<div class="demo-row"><button class="audio" onclick="speak('الْمُهَنْدِسُ')">▶</button><span class="muted">Click to hear: الْمُهَنْدِسُ</span></div>`,
+    code:`<button class="audio" aria-label="Listen to pronunciation">▶</button>\n\n.audio {\n  width: 43px;\n  height: 43px;\n  border-radius: 50%;\n  background: #1769FF;\n  color: #FFF;\n}`
+  },
+  tabs:{
+    name:"Tabs",type:"Molecule",desc:"Segmented navigation used on Word Detail for Details, Examples and Related Words.",
+    props:{Height:"45px",Radius:"10px",ActiveBg:"#FFFFFF",ContainerBg:"#EDF3FB",ActiveColor:"#1769FF",Font:"14px / 700",Gap:"3px",Shadow:"Subtle active shadow"},
+    preview:()=>`<div class="tabs-demo"><button class="tab active">Details</button><button class="tab">Examples</button><button class="tab">Related Words</button></div>`,
+    code:`<div class="tabs">\n  <button class="tab active">Details</button>\n  <button class="tab">Examples</button>\n  <button class="tab">Related Words</button>\n</div>`
+  },
+  detailRow:{
+    name:"Detail Row",type:"Molecule",desc:"Two-column semantic row used for Category, Part of Speech, Plural, Urdu and Hindi meanings.",
+    props:{Columns:"150px + 1fr",Padding:"14px",BorderBottom:"#E4EAF2",LabelColor:"#243653",ValueColor:"#243653",Font:"13px",RTLValue:"Supported"},
+    preview:()=>`<div class="detail-row-demo"><div class="detail-line"><b>Category</b><span>Professions</span></div><div class="detail-line"><b>Plural Form</b><span class="ar">الْمُهَنْدِسُونَ</span></div><div class="detail-line"><b>Meaning in Urdu</b><span>انجینئر</span></div></div>`,
+    code:`<div class="detail-line">\n  <b>Category</b>\n  <span>Professions</span>\n</div>`
+  },
+  progress:{
+    name:"Progress Bar",type:"Atom",desc:"Horizontal progress indicator used for goals and category completion.",
+    props:{Track:"#E8EDF4",Fill:"#1769FF",Height:"9px",Radius:"999px",Animation:"Width transition 300ms",Value:"0–100%"},
+    preview:()=>`<div class="progress-demo"><div style="display:flex;justify-content:space-between;font-size:12px"><b>Today's Goal</b><span>42%</span></div><div class="progress-track" style="margin-top:8px"><div class="progress-fill" style="width:42%"></div></div></div>`,
+    code:`<div class="progress-track">\n  <div class="progress-fill" style="width:42%"></div>\n</div>`
+  },
+  statCard:{
+    name:"Statistic Card",type:"Molecule",desc:"Progress dashboard metric card for Words Learned, Quizzes Completed, Accuracy and Study Time.",
+    props:{Grid:"4 columns desktop",Padding:"18px",Radius:"13px",Icon:"22px",Number:"25px / 800",Label:"11px",Surface:"#FFFFFF",Trend:"Optional green"},
+    preview:()=>`<div class="stat-demo"><div class="stat"><div class="stat-icon">📖</div><div class="stat-number">245</div><div class="stat-label">Words Learned</div></div><div class="stat"><div class="stat-icon">🎯</div><div class="stat-number">92%</div><div class="stat-label">Accuracy</div></div></div>`,
+    code:`<div class="stat">\n  <span class="stat-icon">📖</span>\n  <div class="stat-number">245</div>\n  <div class="stat-label">Words Learned</div>\n</div>`
+  },
+  quizAnswer:{
+    name:"Quiz Answer",type:"Molecule",desc:"Multiple-choice answer button with neutral, correct and incorrect states.",
+    props:{Height:"48px",Radius:"10px",Border:"#E4EAF2",DefaultBg:"#FFFFFF",CorrectBg:"#EAF9F3",CorrectBorder:"#20A878",WrongBg:"#FFF1F0",Transition:"150ms"},
+    preview:()=>`<div class="answers-demo"><button class="answer">Doctor</button><button class="answer">Teacher</button><button class="answer correct">Engineer ✓</button><button class="answer">Student</button></div>`,
+    code:`<button class="answer correct">Engineer ✓</button>\n\n.answer.correct {\n  background: #EAF9F3;\n  border-color: #20A878;\n}`
+  },
+  badge:{
+    name:"Status Badge",type:"Atom",desc:"Small semantic label used for status, progress and category metadata.",
+    props:{Height:"27px",Radius:"999px",Padding:"7px 10px",Font:"11px / 700",SuccessBg:"#EAF9F3",WarningBg:"#FFF1DA",PurpleBg:"#F0EAFF"},
+    preview:()=>`<div class="badges"><span class="badge">Completed</span><span class="badge orange">In Progress</span><span class="badge purple">New</span></div>`,
+    code:`<span class="badge">Completed</span>\n<span class="badge orange">In Progress</span>`
+  },
+  image:{
+    name:"Illustration / Word Image",type:"Atom",desc:"Rounded image container for vocabulary concepts and Word Detail hero illustrations.",
+    props:{ListSize:"64 × 64px",DetailSize:"128–270px",Radius:"13–15px",ObjectFit:"cover",Background:"#EDF3FA",Alt:"Required",Aspect:"Consistent per context"},
+    preview:()=>`<div class="image-demo">👷</div>`,
+    code:`<img class="word-image"\n  src="/images/engineer.webp"\n  alt="Engineer" />\n\n.word-image {\n  width: 128px;\n  height: 128px;\n  border-radius: 15px;\n  object-fit: cover;\n}`
+  },
+  dropdown:{
+    name:"Select / Dropdown",type:"Atom",desc:"Filter control used for category selection and playback speed.",
+    props:{Height:"46px",Radius:"10px",Border:"#E4EAF2",Background:"#FFFFFF",Padding:"11px 14px",Icon:"Chevron",Focus:"Blue outline"},
+    preview:()=>`<div class="dropdown-demo">All Categories <span>⌄</span></div>`,
+    code:`<select class="select">\n  <option>All Categories</option>\n  <option>Professions</option>\n</select>`
+  },
+  quote:{
+    name:"Arabic Quote Card",type:"Molecule",desc:"Motivational quote surface used on the Home dashboard.",
+    props:{Font:"Georgia / Arabic serif",Size:"26px",Alignment:"center",Padding:"28px",Background:"#FFFFFF",Radius:"15px",Subtext:"12px muted"},
+    preview:()=>`<div class="quote-demo"><div class="arabic-demo" style="font-size:38px">مَنْ جَدَّ وَجَدَ</div><div class="muted">"Whoever strives, succeeds."</div></div>`,
+    code:`<div class="quote-card">\n  <div class="arabic">مَنْ جَدَّ وَجَدَ</div>\n  <small>"Whoever strives, succeeds."</small>\n</div>`
+  },
+  alert:{
+    name:"Info Alert",type:"Atom",desc:"Low-emphasis information surface for onboarding, hints and learning guidance.",
+    props:{Background:"#E8F1FF",Text:"#244C91",Radius:"10px",Padding:"13px 15px",Font:"12px",Icon:"Optional"},
+    preview:()=>`<div class="alert">💡 Listen to the word several times to improve pronunciation.</div>`,
+    code:`<div class="alert">\n  💡 Listen to the word several times.\n</div>`
+  },
+
+  palette:{
+    name:"Color Palette",type:"Foundation",desc:"Complete Lisan visual color system: brand colors, text hierarchy, surfaces, borders, states, soft fills, category accents, illustration backgrounds, charts, gradients, overlays and focus/interaction colors.",
+    props:{
+      "Brand Primary":"#1769FF",
+      "Brand Dark":"#0D56D8",
+      "Brand Soft":"#E8F1FF",
+      "Heading":"#10203B",
+      "Body":"#243653",
+      "Muted":"#718096",
+      "Background":"#F4F7FB",
+      "Surface":"#FFFFFF",
+      "Border":"#E4EAF2",
+      "Success":"#20A878",
+      "Warning":"#F59E0B",
+      "Danger":"#EF5B5B",
+      "Purple":"#8B5CF6",
+      "Orange":"#F59E0B",
+      "Pink":"#F472B6",
+      "Green Soft":"#DDF7EC",
+      "Purple Soft":"#EEE7FF",
+      "Orange Soft":"#FFF0DA",
+      "Pink Soft":"#FFE7F0",
+      "Success Soft":"#EAF9F3",
+      "Warning Soft":"#FFF1DA",
+      "Danger Soft":"#FFF1F0",
+      "Purple Surface":"#F0EAFF",
+      "Blue Gray":"#EDF3FB",
+      "Neutral Soft":"#EDF2F8",
+      "Input Focus":"#1769FF",
+      "Focus Ring":"rgba(23,105,255,.20)",
+      "Hover Surface":"#F7FAFF",
+      "Selected Surface":"#E8F1FF",
+      "Chart Grid":"#E8EDF4",
+      "Chart Fill":"#1769FF",
+      "Chart Gradient":"#5790FF → #1769FF",
+      "Overlay":"rgba(16,32,59,.45)",
+      "Shadow":"rgba(23,42,72,.07)",
+      "Hero Overlay":"rgba(255,255,255,.97)",
+      "Dark Toast":"#10203B"
+    },
+    preview:()=>`
+      <div class="palette">
+        <div class="palette-section"><h3>01 · Brand</h3><div class="swatches">
+          ${swatch("#1769FF","Primary Blue","Main CTA, audio, active controls, links")}
+          ${swatch("#0D56D8","Primary Dark","Pressed / hover state")}
+          ${swatch("#2F76FF","Primary Light","Secondary blue highlight")}
+          ${swatch("#E8F1FF","Primary Soft","Active navigation / selected state")}
+          ${swatch("#F7FAFF","Blue Hover","Subtle blue hover surface")}
+        </div></div>
+
+        <div class="palette-section"><h3>02 · Text Hierarchy</h3><div class="swatches">
+          ${swatch("#10203B","Ink / Heading","H1, H2, strong titles, primary Arabic")}
+          ${swatch("#243653","Body Text","Descriptions, labels, values")}
+          ${swatch("#344054","Control Text","Buttons, secondary labels")}
+          ${swatch("#526176","Navigation Text","Sidebar / secondary navigation")}
+          ${swatch("#667085","Secondary Text","Supporting information")}
+          ${swatch("#718096","Muted","Placeholder, metadata, captions")}
+          ${swatch("#8792A4","Subtle Muted","Very low-emphasis metadata")}
+          ${swatch("#98A2B3","Disabled Icon","Inactive icon / bookmark")}
+          ${swatch("#9AA6B6","Section Label","Uppercase design-system labels")}
+        </div></div>
+
+        <div class="palette-section"><h3>03 · Surfaces</h3><div class="swatches">
+          ${swatch("#F4F7FB","App Background","Main page canvas")}
+          ${swatch("#FFFFFF","Surface White","Cards, panels, inputs, sidebar")}
+          ${swatch("#F8FBFF","Preview Surface","Component preview backgrounds")}
+          ${swatch("#EEF5FF","Preview Blue","Preview-stage secondary surface")}
+          ${swatch("#EDF3FB","Blue Gray Surface","Tabs / secondary controls")}
+          ${swatch("#EDF2F8","Neutral Surface","Secondary buttons")}
+          ${swatch("#F3F7FC","Icon Surface","Bookmark / neutral icon buttons")}
+          ${swatch("#E9EEF5","Track Surface","Progress tracks")}
+        </div></div>
+
+        <div class="palette-section"><h3>04 · Borders & Dividers</h3><div class="swatches">
+          ${swatch("#E4EAF2","Border","Cards, controls, inputs")}
+          ${swatch("#E6EBF2","Border Light","Page/header separators")}
+          ${swatch("#EEF1F5","Divider","Detail rows / list separators")}
+          ${swatch("#D6E1EF","Dashed Border","Preview stage")}
+          ${swatch("#CFE0F8","Selected Border","Selected vocabulary row")}
+        </div></div>
+
+        <div class="palette-section"><h3>05 · Semantic Colors</h3><div class="swatches">
+          ${swatch("#20A878","Success","Correct, completed, positive")}
+          ${swatch("#16845A","Success Dark","Success text")}
+          ${swatch("#EAF9F3","Success Soft","Correct-answer background")}
+          ${swatch("#F59E0B","Warning","Attention / progress")}
+          ${swatch("#A76500","Warning Dark","Warning text")}
+          ${swatch("#FFF1DA","Warning Soft","Warning badge")}
+          ${swatch("#EF5B5B","Danger","Error / incorrect")}
+          ${swatch("#B42318","Danger Dark","Error text")}
+          ${swatch("#FFF1F0","Danger Soft","Wrong-answer background")}
+          ${swatch("#8B5CF6","Purple","Secondary accent")}
+          ${swatch("#6841C6","Purple Dark","Purple text")}
+          ${swatch("#F0EAFF","Purple Soft","Purple badge")}
+        </div></div>
+
+        <div class="palette-section"><h3>06 · Home Category Accents</h3><div class="swatches">
+          ${swatch("#DDF7EC","Vocabulary Green","Vocabulary card background")}
+          ${swatch("#EEE7FF","Grammar Purple","Grammar card background")}
+          ${swatch("#FFF0DA","Practice Orange","Practice card background")}
+          ${swatch("#FFE7F0","Progress Pink","Track-progress card background")}
+          ${swatch("#20A878","Vocabulary Icon","Vocabulary accent icon")}
+          ${swatch("#8B5CF6","Grammar Icon","Grammar accent icon")}
+          ${swatch("#F59E0B","Practice Icon","Practice accent icon")}
+          ${swatch("#F472B6","Progress Icon","Progress accent icon")}
+        </div></div>
+
+        <div class="palette-section"><h3>07 · Vocabulary / Category Colors</h3><div class="swatches">
+          ${swatch("#1769FF","Professions Blue","Selected Professions chip")}
+          ${swatch("#20A878","Family Green","Family category")}
+          ${swatch("#F59E0B","Food Orange","Food category")}
+          ${swatch("#8B5CF6","Daily Life Purple","Daily Life category")}
+          ${swatch("#2F76FF","Nature Blue","Nature category")}
+          ${swatch("#20A878","Travel Green","Travel category")}
+          ${swatch("#F472B6","Education Pink","Education category")}
+          ${swatch("#F59E0B","Places Orange","Places category")}
+        </div></div>
+
+        <div class="palette-section"><h3>08 · Quiz States</h3><div class="swatches">
+          ${swatch("#FFFFFF","Answer Default","Neutral answer")}
+          ${swatch("#EAF9F3","Answer Correct BG","Correct answer")}
+          ${swatch("#20A878","Answer Correct Border","Correct answer border")}
+          ${swatch("#FFF1F0","Answer Wrong BG","Incorrect answer")}
+          ${swatch("#EF8C86","Answer Wrong Border","Incorrect answer border")}
+          ${swatch("#16845A","Correct Text","Correct feedback")}
+          ${swatch("#B42318","Wrong Text","Incorrect feedback")}
+        </div></div>
+
+        <div class="palette-section"><h3>09 · Charts & Progress</h3><div class="swatches">
+          ${swatch("#E8EDF4","Progress Track","Empty progress")}
+          ${swatch("#1769FF","Progress Fill","Primary progress")}
+          ${swatch("#5790FF","Chart Highlight","Top of chart gradient")}
+          ${swatch("#E8EDF4","Chart Grid","Graph grid lines")}
+          ${swatch("#1FA97A","Category Progress","Category completion")}
+          ${swatch("#FFFFFF","Chart Tooltip","Tooltip surface")}
+          ${swatch("#10203B","Chart Tooltip Text","Tooltip text")}
+        </div></div>
+
+        <div class="palette-section"><h3>10 · Illustration & Hero</h3><div class="swatches">
+          ${swatch("#CDE2FF","Illustration Blue","Word-image placeholder / illustration")}
+          ${swatch("#EEF6FF","Illustration Light","Illustration secondary background")}
+          ${swatch("#FFFFFF","Hero Overlay","White hero readability overlay")}
+          ${swatch("linear-gradient(135deg,#CDE2FF,#EEF6FF)","Image Placeholder Gradient","Illustration placeholder")}
+          ${swatch("linear-gradient(135deg,#5790FF,#1769FF)","Chart Gradient","Progress / chart bars")}
+        </div></div>
+
+        <div class="palette-section"><h3>11 · Interaction & Effects</h3><div class="swatches">
+          ${swatch("rgba(23,105,255,.20)","Focus Ring","Keyboard focus halo")}
+          ${swatch("rgba(23,42,72,.07)","Card Shadow","Card elevation")}
+          ${swatch("rgba(23,105,255,.20)","Primary Shadow","Primary CTA shadow")}
+          ${swatch("rgba(16,32,59,.45)","Overlay","Modal / overlay layer")}
+          ${swatch("#10203B","Toast Background","Temporary feedback")}
+          ${swatch("#FFFFFF","Toast Text","Toast foreground")}
+        </div></div>
+
+        <div class="palette-section"><h3>12 · Design Tokens</h3>
+          <div>
+            ${token("--primary","#1769FF")}${token("--primary-dark","#0D56D8")}${token("--primary-soft","#E8F1FF")}
+            ${token("--ink","#10203B")}${token("--text","#243653")}${token("--muted","#718096")}
+            ${token("--bg","#F4F7FB")}${token("--surface","#FFFFFF")}${token("--line","#E4EAF2")}
+            ${token("--success","#20A878")}${token("--warning","#F59E0B")}${token("--danger","#EF5B5B")}
+            ${token("--purple","#8B5CF6")}${token("--orange","#F59E0B")}${token("--pink","#F472B6")}
+          </div>
+        </div>
+      </div>`,
+    code:`:root {
+  /* Brand */
+  --primary: #1769FF;
+  --primary-dark: #0D56D8;
+  --primary-light: #2F76FF;
+  --primary-soft: #E8F1FF;
+  --primary-hover: #F7FAFF;
+
+  /* Text */
+  --ink: #10203B;
+  --text: #243653;
+  --control-text: #344054;
+  --nav-text: #526176;
+  --secondary-text: #667085;
+  --muted: #718096;
+  --subtle-muted: #8792A4;
+  --disabled: #98A2B3;
+
+  /* Surfaces */
+  --bg: #F4F7FB;
+  --surface: #FFFFFF;
+  --surface-preview: #F8FBFF;
+  --surface-blue: #EEF5FF;
+  --surface-blue-gray: #EDF3FB;
+  --surface-neutral: #EDF2F8;
+  --surface-icon: #F3F7FC;
+  --track: #E9EEF5;
+
+  /* Borders */
+  --line: #E4EAF2;
+  --line-light: #E6EBF2;
+  --divider: #EEF1F5;
+  --border-dashed: #D6E1EF;
+
+  /* Semantic */
+  --success: #20A878;
+  --success-dark: #16845A;
+  --success-soft: #EAF9F3;
+  --warning: #F59E0B;
+  --warning-dark: #A76500;
+  --warning-soft: #FFF1DA;
+  --danger: #EF5B5B;
+  --danger-dark: #B42318;
+  --danger-soft: #FFF1F0;
+  --purple: #8B5CF6;
+  --purple-dark: #6841C6;
+  --purple-soft: #F0EAFF;
+
+  /* Accents */
+  --orange: #F59E0B;
+  --pink: #F472B6;
+  --illustration-blue: #CDE2FF;
+  --illustration-light: #EEF6FF;
+
+  /* Effects */
+  --focus-ring: rgba(23,105,255,.20);
+  --shadow: 0 8px 26px rgba(23,42,72,.07);
+  --primary-shadow: 0 7px 18px rgba(23,105,255,.20);
+  --overlay: rgba(16,32,59,.45);
+  --toast: #10203B;
+
+  /* Charts */
+  --chart-blue: #1769FF;
+  --chart-highlight: #5790FF;
+  --chart-grid: #E8EDF4;
+  --category-progress: #1FA97A;
+
+  /* Radii */
+  --radius-sm: 9px;
+  --radius-md: 13px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+}`
+  },
+  toast:{
+    name:"Toast",type:"Molecule",desc:"Temporary feedback message used after actions such as bookmarking or completing a quiz.",
+    props:{Background:"#10203B",Color:"#FFFFFF",Radius:"10px",Padding:"13px 17px",Shadow:"8px 20px 35px rgba(...)",Duration:"3–5s",Position:"Bottom right"},
+    preview:()=>`<div class="toast-demo">✓ Word added to your bookmarks</div>`,
+    code:`<div class="toast">\n  ✓ Word added to your bookmarks\n</div>`
+  }
+};
+
+const list=document.getElementById("componentList");
+Object.entries(components).forEach(([key,c],i)=>{
+  const b=document.createElement("button");
+  b.className="component-item"+(i===0?" active":"");
+  b.dataset.key=key;
+  b.innerHTML=`<span class="component-icon">${iconFor(key)}</span><span>${c.name}</span>`;
+  b.onclick=()=>selectComponent(key);
+  list.appendChild(b);
+});
+
+function token(name,value){
+  return `<span class="palette-token"><b>${name}</b>: ${value}</span>`;
+}
+function swatch(color,name,use){
+  const isGradient = String(color).toLowerCase().includes("gradient");
+  const label = isGradient ? color : color.toUpperCase();
+  const textColor = ["#FFFFFF","#F4F7FB","#F8FBFF","#EEF5FF","#EDF3FB","#EDF2F8","#F3F7FC",
+                     "#E8F1FF","#DDF7EC","#EEE7FF","#FFF0DA","#FFE7F0","#EAF9F3","#FFF1DA",
+                     "#FFF1F0","#F0EAFF","#E8EDF4","#E9EEF5"].includes(String(color).toUpperCase())
+                     ? "#10203B" : "#FFFFFF";
+  return `<div class="swatch">
+    <div class="swatch-color" style="background:${color};color:${textColor};text-shadow:${textColor==="#10203B"?"none":"0 1px 3px rgba(0,0,0,.45)"}">
+      ${label}
+    </div>
+    <div class="swatch-info">
+      <div class="swatch-name">${name}</div>
+      <div class="swatch-value">${label}</div>
+      <div class="swatch-use">${use}</div>
+    </div>
+  </div>`;
+}
+function iconFor(k){
+  const icons={button:"▣",iconButton:"◉",navItem:"☰",card:"▤",search:"⌕",chip:"●",arabicWord:"ع",wordRow:"☷",audio:"▶",tabs:"▥",detailRow:"☷",progress:"▰",statCard:"▦",quizAnswer:"✓",badge:"●",image:"▧",dropdown:"⌄",quote:"❝",alert:"ⓘ",toast:"▰",palette:"●"};
+  return icons[k]||"•";
+}
+function selectComponent(key){
+  const c=components[key];
+  document.querySelectorAll(".component-item").forEach(x=>x.classList.toggle("active",x.dataset.key===key));
+  document.getElementById("crumb").textContent=c.name;
+  document.getElementById("title").textContent=c.name;
+  document.getElementById("description").textContent=c.desc;
+  document.getElementById("componentType").textContent=c.type;
+  document.getElementById("previewStage").innerHTML=c.preview();
+  document.getElementById("properties").innerHTML=Object.entries(c.props).map(([k,v])=>`<div class="prop-group"><h3>${k}</h3><div class="prop-row"><span class="prop-key">Value</span><span class="prop-value">${escapeHtml(v)}</span></div></div>`).join("");
+  document.getElementById("code").textContent=c.code;
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+document.getElementById("copyBtn").onclick=async()=>{await navigator.clipboard.writeText(document.getElementById("code").textContent);document.getElementById("copyBtn").textContent="Copied ✓";setTimeout(()=>document.getElementById("copyBtn").textContent="Copy code",1200)}
+function speak(text){if(!speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="ar-SA";u.rate=.72;const v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith("ar"));if(v)u.voice=v;speechSynthesis.speak(u)}
+selectComponent("button");
+</script>
+</body>
+</html>

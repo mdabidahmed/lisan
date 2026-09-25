@@ -1,0 +1,155 @@
+.row {
+  position: relative;
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  padding-block: var(--space-3);
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.row:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-selected);
+  box-shadow: var(--shadow-sm);
+}
+
+.thumbnail {
+  position: relative;
+  z-index: var(--z-raised);
+  pointer-events: none;
+}
+
+/*
+ * Deliberately unpositioned: the stretched `::after` then resolves against `.row`, so the button
+ * covers the entire row without wrapping the category/action controls that follow it.
+ *
+ * Capped rather than `flex: 1 1 auto`: on a wide row that would stretch this column across the
+ * full remaining width, stranding the category badge and actions far from the content. The two
+ * inner columns (word, meaning) split this fixed budget with `fr` units, so — because every row
+ * gets the same budget — they land at the same x-position on every row regardless of how long any
+ * one row's text is.
+ */
+.primary {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  flex: 0 1 34rem;
+  max-inline-size: 34rem;
+  column-gap: var(--space-4);
+  align-items: center;
+  min-inline-size: 0;
+  padding: 0;
+  font-family: inherit;
+  text-align: start;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+
+.primary::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  border-radius: inherit;
+}
+
+.wordCol,
+.meaningCol {
+  display: flex;
+  flex-direction: column;
+  /*
+   * Without this, a flex column defaults to `align-items: stretch`, and a stretched RTL element
+   * (the Arabic span) right-aligns its glyphs within that full-width box — drifting away from the
+   * transliteration underneath it, which stays left-aligned because it's plain LTR text.
+   */
+  align-items: flex-start;
+  gap: var(--space-1);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.arabic {
+  max-inline-size: 100%;
+  overflow: hidden;
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-snug);
+  color: var(--color-text-primary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transliteration {
+  max-inline-size: 100%;
+  overflow: hidden;
+  font-family: var(--font-translit);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meaning {
+  max-inline-size: 100%;
+  overflow: hidden;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-body);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.example {
+  max-inline-size: 100%;
+  overflow: hidden;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Fixed width so the badge — whatever its own text length — never shifts the actions that follow
+   it; `justify-content: center` is what actually centers the badge within that fixed column. */
+.categoryCell {
+  display: flex;
+  flex: 0 0 11rem;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: 0;
+}
+
+.actions {
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  /* Pins the buttons to the row's trailing edge regardless of how much of the capped `.primary`
+     column any given row's text actually fills. */
+  margin-inline-start: auto;
+  gap: var(--space-2);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.chevron {
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 767px) {
+  .primary {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-2);
+    flex: 1 1 auto;
+    max-inline-size: none;
+  }
+
+  .categoryCell {
+    display: none;
+  }
+}

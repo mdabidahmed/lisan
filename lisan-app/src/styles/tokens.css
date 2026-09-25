@@ -1,0 +1,509 @@
+/**
+ * Lisan design tokens.
+ *
+ * Single source of truth for every visual value in the product. Components must never hard-code a
+ * colour, radius, shadow, duration or font size — they read from here so that theming, contrast
+ * modes and future rebrands are one-file changes.
+ *
+ * Structure
+ *   01 Brand            06 Category accents
+ *   02 Text hierarchy   07 Quiz states
+ *   03 Surfaces         08 Charts & progress
+ *   04 Borders          09 Effects (shadow / focus / overlay)
+ *   05 Semantic         10 Radii, spacing, typography, layout, z-index, motion
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ── 01 · Brand ─────────────────────────────────────────────────────────── */
+  --color-primary: #1769ff;
+  --color-primary-hover: #1257d6;
+  --color-primary-active: #0d4bbd;
+  --color-primary-light: #eaf2ff;
+  --color-primary-soft: #f2f7ff;
+  --color-primary-contrast: #ffffff;
+  --color-primary-bright: #2f76ff;
+
+  /* ── 02 · Text hierarchy ────────────────────────────────────────────────── */
+  --color-text-primary: #172033;
+  --color-text-body: #243653;
+  --color-text-control: #344054;
+  --color-text-nav: #526176;
+  --color-text-secondary: #667085;
+  --color-text-muted: #98a2b3;
+  --color-text-subtle: #8792a4;
+  --color-text-disabled: #b3bcca;
+  --color-text-inverse: #ffffff;
+  --color-text-on-accent: #ffffff;
+  --color-text-link: var(--color-primary);
+
+  /* ── 03 · Surfaces ──────────────────────────────────────────────────────── */
+  --color-bg: #f5f7fa;
+  --color-bg-subtle: #eef2f8;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: #f8fafc;
+  --color-surface-neutral: #edf2f8;
+  --color-surface-blue-gray: #edf3fb;
+  --color-surface-icon: #f3f7fc;
+  --color-surface-hover: #f7faff;
+  --color-surface-selected: #eaf2ff;
+  --color-surface-inverse: #172033;
+  --color-track: #e8edf4;
+  --color-skeleton: #e9eef5;
+  --color-skeleton-highlight: #f4f7fb;
+
+  /* ── 04 · Borders ───────────────────────────────────────────────────────── */
+  --color-border: #e4e8ef;
+  --color-border-light: #eef1f5;
+  --color-border-strong: #d4dbe6;
+  --color-border-selected: #cfe0f8;
+  --color-border-dashed: #d6e1ef;
+  --border-width: 1px;
+
+  /* ── 05 · Semantic ──────────────────────────────────────────────────────── */
+  --color-success: #12b76a;
+  --color-success-strong: #067647;
+  --color-success-soft: #e6f8f0;
+  --color-warning: #f79009;
+  --color-warning-strong: #a76500;
+  --color-warning-soft: #fff4e5;
+  --color-error: #f04438;
+  --color-error-strong: #b42318;
+  --color-error-soft: #fef0ef;
+  --color-info: #2e90fa;
+  --color-info-strong: #175cd3;
+  --color-info-soft: #eaf3ff;
+
+  /* ── 06 · Category & accent colours ─────────────────────────────────────── */
+  --color-accent-blue: #1769ff;
+  --color-accent-blue-soft: #e5efff;
+  --color-accent-green: #12b76a;
+  --color-accent-green-soft: #ddf7ec;
+  --color-accent-orange: #f79009;
+  --color-accent-orange-soft: #fff0da;
+  --color-accent-purple: #8b5cf6;
+  --color-accent-purple-soft: #eee7ff;
+  --color-accent-pink: #f472b6;
+  --color-accent-pink-soft: #ffe7f0;
+  --color-accent-teal: #0ea5a5;
+  --color-accent-teal-soft: #d8f5f4;
+  --color-accent-indigo: #6172f3;
+  --color-accent-indigo-soft: #e6e8ff;
+  --color-accent-amber: #dc9a06;
+  --color-accent-amber-soft: #fdf3d7;
+  --color-accent-red: #f04438;
+  --color-accent-red-soft: #ffe9e7;
+  --color-accent-cyan: #06aed4;
+  --color-accent-cyan-soft: #d7f3fb;
+
+  /* Home dashboard quick-action tiles */
+  --color-tile-vocabulary: var(--color-accent-green);
+  --color-tile-vocabulary-soft: var(--color-accent-green-soft);
+  --color-tile-grammar: var(--color-accent-purple);
+  --color-tile-grammar-soft: var(--color-accent-purple-soft);
+  --color-tile-practice: var(--color-accent-orange);
+  --color-tile-practice-soft: var(--color-accent-orange-soft);
+  --color-tile-progress: var(--color-accent-pink);
+  --color-tile-progress-soft: var(--color-accent-pink-soft);
+
+  /*
+    Vocabulary category accents, referenced by `color` in src/data/categories.ts.
+    Aliases rather than literals: the accent palette is already redefined per theme, so a
+    category inherits dark mode without a second declaration. Hues are spread so that
+    categories sitting next to each other in the grid never read as the same colour.
+  */
+  --color-category-basics: var(--color-accent-blue);
+  --color-category-basics-soft: var(--color-accent-blue-soft);
+  --color-category-numbers: var(--color-accent-indigo);
+  --color-category-numbers-soft: var(--color-accent-indigo-soft);
+  --color-category-time: var(--color-accent-amber);
+  --color-category-time-soft: var(--color-accent-amber-soft);
+  --color-category-family: var(--color-accent-purple);
+  --color-category-family-soft: var(--color-accent-purple-soft);
+  --color-category-food: var(--color-accent-orange);
+  --color-category-food-soft: var(--color-accent-orange-soft);
+  --color-category-vegetables: var(--color-accent-green);
+  --color-category-vegetables-soft: var(--color-accent-green-soft);
+  --color-category-fruit: var(--color-accent-cyan);
+  --color-category-fruit-soft: var(--color-accent-cyan-soft);
+  --color-category-home: var(--color-accent-teal);
+  --color-category-home-soft: var(--color-accent-teal-soft);
+  --color-category-shopping: var(--color-accent-pink);
+  --color-category-shopping-soft: var(--color-accent-pink-soft);
+  --color-category-travel: var(--color-accent-amber);
+  --color-category-travel-soft: var(--color-accent-amber-soft);
+  --color-category-daily: var(--color-accent-cyan);
+  --color-category-daily-soft: var(--color-accent-cyan-soft);
+  --color-category-verbs: var(--color-accent-red);
+  --color-category-verbs-soft: var(--color-accent-red-soft);
+  --color-category-adjectives: var(--color-accent-purple);
+  --color-category-adjectives-soft: var(--color-accent-purple-soft);
+  --color-category-school: var(--color-accent-teal);
+  --color-category-school-soft: var(--color-accent-teal-soft);
+  --color-category-work: var(--color-accent-blue);
+  --color-category-work-soft: var(--color-accent-blue-soft);
+  --color-category-nature: var(--color-accent-green);
+  --color-category-nature-soft: var(--color-accent-green-soft);
+  --color-category-health: var(--color-accent-red);
+  --color-category-health-soft: var(--color-accent-red-soft);
+  --color-category-technology: var(--color-accent-indigo);
+  --color-category-technology-soft: var(--color-accent-indigo-soft);
+  --color-category-abstract: var(--color-accent-purple);
+  --color-category-abstract-soft: var(--color-accent-purple-soft);
+  --color-category-expressions: var(--color-accent-pink);
+  --color-category-expressions-soft: var(--color-accent-pink-soft);
+
+  /* ── 07 · Quiz states ───────────────────────────────────────────────────── */
+  --color-quiz-option-bg: var(--color-surface);
+  --color-quiz-option-border: var(--color-border);
+  --color-quiz-option-hover-bg: var(--color-surface-hover);
+  --color-quiz-selected-bg: #eaf2ff;
+  --color-quiz-selected-border: #1769ff;
+  --color-quiz-correct-bg: #eaf9f3;
+  --color-quiz-correct-border: #12b76a;
+  --color-quiz-correct-text: #067647;
+  --color-quiz-wrong-bg: #fff1f0;
+  --color-quiz-wrong-border: #ef8c86;
+  --color-quiz-wrong-text: #b42318;
+
+  /* ── 08 · Charts & progress ─────────────────────────────────────────────── */
+  --color-chart-line: #1769ff;
+  --color-chart-line-alt: #12b76a;
+  --color-chart-point: #1769ff;
+  --color-chart-grid: #e8edf4;
+  --color-chart-axis-text: #98a2b3;
+  --color-chart-area-from: rgb(23 105 255 / 22%);
+  --color-chart-area-to: rgb(23 105 255 / 0%);
+  --color-chart-tooltip-bg: #172033;
+  --color-chart-tooltip-text: #ffffff;
+  --color-progress-track: var(--color-track);
+  --color-progress-fill: var(--color-primary);
+  --color-progress-fill-success: var(--color-success);
+
+  /* ── 09 · Illustration & effects ────────────────────────────────────────── */
+  --color-illustration-from: #cde2ff;
+  --color-illustration-to: #eef6ff;
+  --gradient-thumbnail: linear-gradient(
+    135deg,
+    var(--color-illustration-from),
+    var(--color-illustration-to)
+  );
+  --gradient-primary: linear-gradient(135deg, #5790ff, #1769ff);
+
+  /* Hero copy sits on illustration artwork, so it needs its own fixed-contrast pair. */
+  --color-hero-text: #10203b;
+  --color-hero-text-muted: #29405f;
+  --color-hero-halo: rgb(255 255 255 / 45%);
+  /* Lifts the hero photograph behind the headline so the copy keeps AA contrast. */
+  --color-hero-scrim: rgb(255 255 255 / 78%);
+
+  --color-overlay: rgb(16 32 59 / 45%);
+  --color-focus-ring: rgb(23 105 255 / 35%);
+
+  --shadow-xs: 0 1px 2px rgb(23 42 72 / 6%);
+  --shadow-sm: 0 2px 8px rgb(23 42 72 / 6%);
+  --shadow-md: 0 8px 26px rgb(23 42 72 / 7%);
+  --shadow-lg: 0 16px 40px rgb(23 42 72 / 10%);
+  --shadow-xl: 0 24px 60px rgb(23 42 72 / 14%);
+  --shadow-primary: 0 7px 18px rgb(23 105 255 / 20%);
+  --shadow-focus: 0 0 0 3px var(--color-focus-ring);
+
+  /* ── 10a · Radii ────────────────────────────────────────────────────────── */
+  --radius-xs: 6px;
+  --radius-sm: 9px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  /* ── 10b · Spacing (4px scale) ──────────────────────────────────────────── */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* ── 10c · Typography ───────────────────────────────────────────────────── */
+  --font-latin:
+    'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', roboto, helvetica, arial,
+    sans-serif;
+  --font-arabic: 'Noto Naskh Arabic', 'Geeza Pro', 'Segoe UI', system-ui, serif;
+  --font-arabic-ui: 'Noto Naskh Arabic', 'Geeza Pro', system-ui, sans-serif;
+  --font-mono: ui-monospace, sfmono-regular, 'SF Mono', menlo, monospace;
+
+  /*
+    Urdu is set in nastaliq, never in naskh. Not a preference — an Urdu gloss in an Arabic naskh
+    face is simply wrong, the way Cyrillic in a Greek face would be. `UrduText` owns the one class
+    that reads this and fetches the face when it mounts.
+  */
+  --font-urdu: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Noto Naskh Arabic', serif;
+
+  /*
+    Transliteration. Follows the reading face by default and switches to a monospace under the
+    Appearance preference, where the fixed advance width lines up diacritics (ṭālib, aṭ-ṭībbu)
+    that are otherwise easy to misread.
+  */
+  --font-translit: var(--font-latin);
+
+  --font-size-2xs: 0.6875rem; /* 11px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.8125rem; /* 13px */
+  --font-size-md: 0.875rem; /* 14px */
+  --font-size-base: 0.9375rem; /* 15px */
+  --font-size-lg: 1.0625rem; /* 17px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.75rem; /* 28px */
+  --font-size-4xl: 2rem; /* 32px */
+  --font-size-5xl: 2.5rem; /* 40px */
+  --font-size-6xl: 3rem; /* 48px */
+
+  /* Arabic runs visually smaller at the same px size, so it gets a dedicated scale. */
+  --font-size-arabic-xs: 1.125rem; /* 18px — inline metadata */
+  --font-size-arabic-sm: 1.375rem; /* 22px — example sentences (spec minimum) */
+  --font-size-arabic-md: 1.75rem; /* 28px — example sentences (spec maximum), list rows */
+  --font-size-arabic-lg: 2rem; /* 32px — vocabulary (spec minimum) */
+  --font-size-arabic-xl: 2.5rem; /* 40px — quiz prompt */
+  --font-size-arabic-2xl: 3rem; /* 48px — word detail hero (spec maximum) */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --leading-arabic: 1.7;
+  /* Nastaliq cascades down the line rather than sitting on a baseline, so it needs far more. */
+  --leading-nastaliq: 2.1;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+  --tracking-caps: 0.08em;
+
+  /* ── 10d · Layout ───────────────────────────────────────────────────────── */
+  --layout-sidebar-width: 250px;
+  --layout-topbar-height: 64px;
+  --layout-mobile-nav-height: 64px;
+  --layout-content-max: 1240px;
+  --layout-gutter: var(--space-6);
+  --layout-gutter-mobile: var(--space-4);
+
+  /* ── 10e · Z-index ──────────────────────────────────────────────────────── */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-drawer-backdrop: 390;
+  --z-drawer: 400;
+  --z-overlay: 500;
+  --z-modal: 600;
+  --z-toast: 800;
+  --z-tooltip: 900;
+  --z-skip-link: 1000;
+
+  /* ── 10f · Motion ───────────────────────────────────────────────────────── */
+  --duration-instant: 80ms;
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --duration-slow: 320ms;
+  --duration-slower: 480ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Control sizing */
+  --control-height-sm: 34px;
+  --control-height-md: 40px;
+  --control-height-lg: 46px;
+  --control-height-xl: 52px;
+}
+
+/* ══ Dark theme ═══════════════════════════════════════════════════════════════
+ * Only token values change. No component stylesheet is duplicated.
+ */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-primary: #4c8dff;
+  --color-primary-hover: #6ba1ff;
+  --color-primary-active: #82b0ff;
+  --color-primary-light: #17264a;
+  --color-primary-soft: #131e36;
+  --color-primary-contrast: #06101f;
+  --color-primary-bright: #6ba1ff;
+
+  --color-text-primary: #e8edf6;
+  --color-text-body: #d3dbe8;
+  --color-text-control: #c5cfdf;
+  --color-text-nav: #a7b4c8;
+  --color-text-secondary: #97a4b8;
+  --color-text-muted: #78879e;
+  --color-text-subtle: #6d7c93;
+  --color-text-disabled: #55647a;
+  --color-text-inverse: #0b1220;
+  --color-text-on-accent: #06101f;
+
+  --color-bg: #0a101d;
+  --color-bg-subtle: #0d1524;
+  --color-surface: #121b2c;
+  --color-surface-raised: #17223a;
+  --color-surface-sunken: #0e1626;
+  --color-surface-neutral: #1b2740;
+  --color-surface-blue-gray: #17223a;
+  --color-surface-icon: #1a2438;
+  --color-surface-hover: #182238;
+  --color-surface-selected: #17264a;
+  --color-surface-inverse: #e8edf6;
+  --color-track: #222e46;
+  --color-skeleton: #1a2337;
+  --color-skeleton-highlight: #222d45;
+
+  --color-border: #243149;
+  --color-border-light: #1d2941;
+  --color-border-strong: #33425e;
+  --color-border-selected: #2f4c86;
+  --color-border-dashed: #2c3b56;
+
+  --color-success: #32d583;
+  --color-success-strong: #6ce9a6;
+  --color-success-soft: #0d2a20;
+  --color-warning: #fdb022;
+  --color-warning-strong: #fec84b;
+  --color-warning-soft: #33240c;
+  --color-error: #f97066;
+  --color-error-strong: #fda29b;
+  --color-error-soft: #37171a;
+  --color-info: #53b1fd;
+  --color-info-strong: #84caff;
+  --color-info-soft: #10243d;
+
+  --color-accent-blue: #6ba1ff;
+  --color-accent-blue-soft: #16244a;
+  --color-accent-green: #32d583;
+  --color-accent-green-soft: #0e2b21;
+  --color-accent-orange: #fdb022;
+  --color-accent-orange-soft: #33240c;
+  --color-accent-purple: #a78bfa;
+  --color-accent-purple-soft: #241c44;
+  --color-accent-pink: #f9a8d4;
+  --color-accent-pink-soft: #3a1c2d;
+  --color-accent-teal: #2dd4bf;
+  --color-accent-teal-soft: #0c2b2a;
+  --color-accent-indigo: #8d9bff;
+  --color-accent-indigo-soft: #1c2050;
+  --color-accent-amber: #fbbf24;
+  --color-accent-amber-soft: #33270a;
+  --color-accent-red: #f97066;
+  --color-accent-red-soft: #38181a;
+  --color-accent-cyan: #22d3ee;
+  --color-accent-cyan-soft: #0c2933;
+
+  --color-quiz-selected-bg: #17264a;
+  --color-quiz-selected-border: #4c8dff;
+  --color-quiz-correct-bg: #0e2b21;
+  --color-quiz-correct-border: #32d583;
+  --color-quiz-correct-text: #6ce9a6;
+  --color-quiz-wrong-bg: #38181a;
+  --color-quiz-wrong-border: #f97066;
+  --color-quiz-wrong-text: #fda29b;
+
+  --color-chart-line: #6ba1ff;
+  --color-chart-line-alt: #32d583;
+  --color-chart-point: #6ba1ff;
+  --color-chart-grid: #222e46;
+  --color-chart-axis-text: #78879e;
+  --color-chart-area-from: rgb(107 161 255 / 26%);
+  --color-chart-area-to: rgb(107 161 255 / 0%);
+  --color-chart-tooltip-bg: #e8edf6;
+  --color-chart-tooltip-text: #0a101d;
+
+  --color-illustration-from: #1c3055;
+  --color-illustration-to: #16233b;
+  --gradient-primary: linear-gradient(135deg, #6ba1ff, #2f6fe0);
+
+  --color-hero-text: #e8edf6;
+  --color-hero-text-muted: #b8c6dc;
+  --color-hero-halo: rgb(4 10 22 / 70%);
+  --color-hero-scrim: rgb(4 10 22 / 76%);
+
+  --color-overlay: rgb(3 8 18 / 66%);
+  --color-focus-ring: rgb(107 161 255 / 45%);
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 35%);
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 35%);
+  --shadow-md: 0 8px 26px rgb(0 0 0 / 40%);
+  --shadow-lg: 0 16px 40px rgb(0 0 0 / 46%);
+  --shadow-xl: 0 24px 60px rgb(0 0 0 / 52%);
+  --shadow-primary: 0 7px 18px rgb(23 105 255 / 32%);
+}
+
+/* Optional accessibility modes layered on top of either theme. */
+[data-contrast='high'] {
+  --color-border: #7c8aa0;
+  --color-border-light: #90a0b6;
+  --color-text-secondary: var(--color-text-body);
+  --color-text-muted: var(--color-text-body);
+  --shadow-focus: 0 0 0 4px var(--color-focus-ring);
+}
+
+/* ══ Font preferences ═════════════════════════════════════════════════════════
+ * Written on `<html>` by `src/styles/webfonts/documentFonts.ts`, and by the inline bootstrap in
+ * `index.html` before first paint. Same contract as the modes above: only token values change,
+ * and only for the non-default choices — the default face writes no attribute at all.
+ *
+ * Every stack keeps the self-hosted default as its last real entry, so the page renders in a
+ * correct face from the first frame and simply re-paints if and when the chosen one arrives.
+ *
+ * `--font-arabic-ui` is deliberately not overridden. It is chrome — category tiles, the typing
+ * input — laid out at fixed heights, and nastaliq in a 34px control clips. The preference is
+ * about the script a learner *reads*, which is `--font-arabic`.
+ */
+[data-font-arabic='amiri'] {
+  --font-arabic: 'Amiri', 'Noto Naskh Arabic', 'Geeza Pro', serif;
+}
+
+[data-font-arabic='indopak'] {
+  --font-arabic: 'IndoPak Nastaleeq', 'Noto Naskh Arabic', 'Geeza Pro', serif;
+  --leading-arabic: var(--leading-nastaliq);
+}
+
+[data-font-reading='spectral'] {
+  --font-latin: 'Spectral', 'Iowan Old Style', georgia, 'Times New Roman', serif;
+}
+
+[data-font-translit='mono'] {
+  --font-translit: 'IBM Plex Mono', var(--font-mono);
+}
+
+[data-text-size='large'] {
+  --font-size-2xs: 0.75rem;
+  --font-size-xs: 0.8125rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 0.9375rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: 1.625rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 2.75rem;
+  --font-size-6xl: 3.25rem;
+}

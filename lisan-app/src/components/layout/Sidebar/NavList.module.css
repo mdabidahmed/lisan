@@ -1,0 +1,55 @@
+.list {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--control-height-md);
+  padding-inline: var(--space-3);
+  padding-block: var(--space-2);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-nav);
+  border-radius: var(--radius-md);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.link:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-soft);
+}
+
+.active,
+.active:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  font-weight: var(--font-weight-bold);
+}
+
+.icon {
+  color: currentcolor;
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A non-colour cue for the active item, so state is never conveyed by hue alone. */
+.marker {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block: 20%;
+  width: 3px;
+  background-color: var(--color-primary);
+  border-start-end-radius: var(--radius-pill);
+  border-end-end-radius: var(--radius-pill);
+}

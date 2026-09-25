@@ -1,0 +1,153 @@
+/**
+ * Global element styling and shared primitives (Arabic typography, skip link, scrollbars).
+ * Anything component-specific belongs in a *.module.css file.
+ */
+
+html {
+  font-family: var(--font-latin);
+  background-color: var(--color-bg);
+}
+
+body {
+  font-family: var(--font-latin);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    color var(--duration-normal) var(--ease-standard);
+}
+
+#root {
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* ── Arabic typography ───────────────────────────────────────────────────────
+ * Arabic is a first-class language here: it gets its own family, its own scale and
+ * genuine RTL flow (not an `unicode-bidi` hack on Latin text).
+ */
+[lang='ar'],
+.arabic {
+  font-family: var(--font-arabic);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-arabic);
+  font-feature-settings:
+    'liga' 1,
+    'calt' 1;
+}
+
+[dir='rtl'] {
+  text-align: right;
+}
+
+/* Digits inside Arabic blocks stay Western Arabic numerals for consistency with the UI. */
+[lang='ar'] .latin-numerals {
+  font-family: var(--font-latin);
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ── Skip link ─────────────────────────────────────────────────────────────── */
+.skip-link {
+  position: fixed;
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-3);
+  z-index: var(--z-skip-link);
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary-contrast);
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(calc(-100% - var(--space-6)));
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-offset: 3px;
+}
+
+/* ── Scrollbars ────────────────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-border-strong);
+  border: 3px solid transparent;
+  border-radius: var(--radius-pill);
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-muted);
+  background-clip: content-box;
+}
+
+/* ── Shared animations ─────────────────────────────────────────────────────── */
+@keyframes lisan-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lisan-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lisan-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lisan-shimmer {
+  from {
+    background-position: 180% 0;
+  }
+
+  to {
+    background-position: -80% 0;
+  }
+}
+
+@keyframes lisan-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-focus-ring);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}

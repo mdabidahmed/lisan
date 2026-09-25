@@ -1,0 +1,138 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-block-start: var(--space-4);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1.1fr) minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface-sunken);
+  border: var(--border-width) solid var(--color-border-light);
+  border-radius: var(--radius-md);
+}
+
+.index {
+  display: grid;
+  inline-size: 26px;
+  block-size: 26px;
+  place-items: center;
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-neutral);
+  border-radius: var(--radius-circle);
+}
+
+.word {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  align-items: baseline;
+  min-inline-size: 0;
+}
+
+.arabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-arabic);
+  color: var(--color-text-primary);
+}
+
+.english {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-body);
+}
+
+.translit {
+  font-family: var(--font-translit);
+  font-size: var(--font-size-xs);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-inline-size: 0;
+}
+
+.answer {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.answer dt {
+  flex-shrink: 0;
+  font-size: var(--font-size-2xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.given,
+.expected {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.givenCorrect {
+  color: var(--color-quiz-correct-text);
+}
+
+.givenIncorrect {
+  color: var(--color-quiz-wrong-text);
+}
+
+.expected {
+  color: var(--color-text-body);
+}
+
+.answerArabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-xs);
+  line-height: var(--leading-arabic);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-self: end;
+}
+
+.link {
+  display: inline-flex;
+  gap: var(--space-1);
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-link);
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 899px) {
+  .row {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .answers,
+  .actions {
+    grid-column: 2;
+    justify-self: start;
+  }
+}

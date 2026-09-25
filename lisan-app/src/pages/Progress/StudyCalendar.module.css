@@ -1,0 +1,107 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin-block-start: var(--space-5);
+}
+
+.weekdayLabel {
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-muted);
+}
+
+.pad {
+  aspect-ratio: 1;
+}
+
+/* Overrides Tooltip's own `.wrapper` (`display: inline-flex`, sized to content) so the trigger
+   fills its grid cell exactly like the plain `<span>` it replaced. An element selector beats
+   `.wrapper`'s class selector on specificity regardless of stylesheet import order. */
+span.dayWrapper {
+  display: block;
+  inline-size: 100%;
+}
+
+.day {
+  display: grid;
+  inline-size: 100%;
+  aspect-ratio: 1;
+  place-items: center;
+  font-family: inherit;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  background-color: var(--color-surface-sunken);
+  border: none;
+  border-radius: var(--radius-lg);
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.day:hover {
+  box-shadow: inset 0 0 0 2px var(--color-border-selected);
+}
+
+.day:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.level1 {
+  color: var(--color-text-primary);
+  background-color: color-mix(in srgb, var(--color-accent-green) 25%, var(--color-surface-sunken));
+}
+
+.level2 {
+  color: var(--color-text-primary);
+  background-color: color-mix(in srgb, var(--color-accent-green) 55%, var(--color-surface-sunken));
+}
+
+.level3 {
+  color: var(--color-primary-contrast);
+  background-color: var(--color-accent-green);
+}
+
+.today {
+  box-shadow: inset 0 0 0 3px var(--color-text-primary);
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2);
+  margin-block-start: var(--space-6);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.swatch {
+  inline-size: 16px;
+  block-size: 16px;
+  background-color: var(--color-surface-sunken);
+  border-radius: var(--radius-sm);
+}
+
+/*
+ * `.swatch` and `.levelN` share specificity, and `.swatch` is declared after — without this, its
+ * background always won on the legend's swatches, so "Less → More" rendered as four identical
+ * gray squares instead of the actual heatmap gradient.
+ */
+.swatch.level1 {
+  background-color: color-mix(in srgb, var(--color-accent-green) 25%, var(--color-surface-sunken));
+}
+
+.swatch.level2 {
+  background-color: color-mix(in srgb, var(--color-accent-green) 55%, var(--color-surface-sunken));
+}
+
+.swatch.level3 {
+  background-color: var(--color-accent-green);
+}

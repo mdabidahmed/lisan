@@ -1,0 +1,86 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.counter {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+/* The percentage sits beside the track, as on reference screen 4. */
+.progressRow {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.progressBar {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.progressValue {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+.prompt {
+  margin-block: var(--space-6) var(--space-4);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-body);
+}
+
+/* ── Feedback ─────────────────────────────────────────────────────────────── */
+
+.feedback {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  min-block-size: var(--space-6);
+  margin-block-start: var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.correct {
+  color: var(--color-quiz-correct-text);
+}
+
+.nearMiss {
+  color: var(--color-warning-strong);
+}
+
+.incorrect {
+  color: var(--color-quiz-wrong-text);
+}
+
+.answer {
+  font-weight: var(--font-weight-bold);
+}
+
+.answerArabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-xs);
+  line-height: var(--leading-arabic);
+}
+
+/* ── Navigation ───────────────────────────────────────────────────────────── */
+
+.nav {
+  display: flex;
+  gap: var(--space-3);
+  margin-block-start: var(--space-4);
+}
+
+.nav > * {
+  flex: 1 1 auto;
+}

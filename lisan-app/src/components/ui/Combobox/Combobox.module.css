@@ -1,0 +1,175 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-control);
+}
+
+/* Matches `Select`'s `.control` + `.select` exactly — this is a drop-in replacement for the
+   closed state, the native popover is the only thing being replaced. */
+.trigger {
+  position: relative;
+  display: flex;
+  inline-size: 100%;
+  align-items: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-4) var(--space-8);
+  font-family: inherit;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-control);
+  text-align: start;
+  cursor: pointer;
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.trigger:hover {
+  border-color: var(--color-border-strong);
+}
+
+.trigger:focus-visible,
+.root:has(.panel) .trigger {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.sm {
+  block-size: var(--control-height-sm);
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  block-size: var(--control-height-md);
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  block-size: var(--control-height-lg);
+  font-size: var(--font-size-base);
+}
+
+.triggerIcon {
+  flex-shrink: 0;
+}
+
+.triggerLabel {
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  position: absolute;
+  inset-inline-end: var(--space-3);
+  color: var(--color-text-muted);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/*
+ * Positioned like `FontSwitcher`'s panel, but left-anchored under a trigger that isn't itself
+ * pinned to the far edge of anything — `min-inline-size: 100%` keeps it at least as wide as the
+ * trigger, `max-inline-size` lets it breathe for a longer label without running off narrow
+ * screens, and the scroll cap is what a native popover never gave a long list: a height that
+ * stays on screen instead of whatever the platform feels like.
+ *
+ * `--z-overlay`, not `--z-raised`: `FontSwitcher` can get away with `--z-raised` because it lives
+ * inside the `position: sticky` top bar, which already paints above the page as a whole. This
+ * combobox sits inline in the page itself, at the same stacking tier as every list row's own
+ * `--z-raised` play/bookmark buttons — with equal z-index, the rows below win the tie because
+ * they come later in DOM order, so the panel needs a tier of its own to clear them.
+ */
+.panel {
+  position: absolute;
+  inset-block-start: calc(100% + var(--space-2));
+  inset-inline-start: 0;
+  z-index: var(--z-overlay);
+  overflow-y: auto;
+  inline-size: max-content;
+  min-inline-size: 100%;
+  max-inline-size: min(22rem, 90vw);
+  max-block-size: min(22rem, 60vh);
+  padding: var(--space-1);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.panel:focus-visible {
+  outline: none;
+}
+
+.option {
+  display: flex;
+  inline-size: 100%;
+  align-items: center;
+  gap: var(--space-2);
+  min-block-size: var(--control-height-sm);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  text-align: start;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--radius-sm);
+  transition:
+    color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.option:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.option:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+.optionSelected,
+.optionSelected:hover {
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.optionIcon {
+  flex-shrink: 0;
+}
+
+.optionLabel {
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.optionCheck {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .chevron,
+  .option {
+    transition: none;
+  }
+}

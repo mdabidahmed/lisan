@@ -1,0 +1,137 @@
+/* Mirrors `QuizCard`'s tinted word panel, so a typed question reads as the same kind of "unit"
+   as a multiple-choice or listening one, instead of a plain sentence sitting on the page. */
+.subjectPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-5);
+  margin-block-end: var(--space-5);
+  background-color: var(--color-accent-purple-soft);
+  border-radius: var(--radius-lg);
+}
+
+.subject {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.subjectAudio {
+  flex-shrink: 0;
+}
+
+.subjectAudio button {
+  background-color: var(--color-accent-purple);
+  box-shadow: none;
+}
+
+.subjectAudio button:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--color-accent-purple) 85%, black);
+}
+
+/* The prompt is the word itself when the answer is the English meaning. */
+.subjectArabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-arabic);
+}
+
+.form {
+  display: flex;
+  gap: var(--space-3);
+  /* Top-aligned rather than flex-end: the input carries a label above and a hint below it, so
+     bottom-aligning put the button level with the hint text instead of the input box itself.
+     `.checkSpacer` mirrors the label's height so the button's own box still lines up with the
+     input's control box. */
+  align-items: flex-start;
+}
+
+.input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.checkWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.checkSpacer {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  visibility: hidden;
+}
+
+.inputArabic input {
+  font-family: var(--font-arabic-ui);
+  font-size: var(--font-size-arabic-xs);
+}
+
+.answer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: center;
+  margin-block-start: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface-sunken);
+  border: var(--border-width) solid var(--color-border-light);
+  border-radius: var(--radius-md);
+}
+
+.answerLabel {
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.answerArabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-arabic);
+  color: var(--color-text-primary);
+}
+
+.answerEnglish {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.answerTranslit {
+  font-family: var(--font-translit);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 599px) {
+  .form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .checkSpacer {
+    display: none;
+  }
+
+  .subjectPanel {
+    padding: var(--space-4);
+  }
+
+  .subject {
+    font-size: var(--font-size-3xl);
+  }
+
+  .subjectArabic {
+    font-size: var(--font-size-arabic-lg);
+  }
+}

@@ -1,0 +1,98 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block-start: var(--space-4);
+}
+
+.item {
+  display: flex;
+  flex: 1 1 var(--space-10);
+  max-inline-size: 64px;
+}
+
+.face {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.button {
+  display: flex;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-md);
+}
+
+/* Only the border moves on hover: the fill is carrying the outcome. */
+.button:hover .pill {
+  border-color: var(--color-border-selected);
+}
+
+.button:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+.pill {
+  display: grid;
+  inline-size: 100%;
+  min-inline-size: var(--space-10);
+  aspect-ratio: 1;
+  place-items: center;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface-neutral);
+  border: 2px solid transparent;
+  border-radius: var(--radius-circle);
+}
+
+.mark {
+  display: grid;
+  inline-size: 18px;
+  block-size: 18px;
+  place-items: center;
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-circle);
+}
+
+.dot {
+  inline-size: 5px;
+  block-size: 5px;
+  background-color: var(--color-text-disabled);
+  border-radius: var(--radius-circle);
+}
+
+.correct.pill {
+  color: var(--color-quiz-correct-text);
+  background-color: var(--color-quiz-correct-bg);
+}
+
+.correct.mark {
+  color: var(--color-text-on-accent);
+  background-color: var(--color-success);
+}
+
+.incorrect.pill {
+  color: var(--color-quiz-wrong-text);
+  background-color: var(--color-quiz-wrong-bg);
+}
+
+.incorrect.mark {
+  color: var(--color-text-on-accent);
+  background-color: var(--color-error);
+}
+
+.current {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}

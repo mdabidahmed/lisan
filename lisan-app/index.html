@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" dir="ltr" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>Lisan — Learn Arabic, Grow Closer</title>
+    <meta
+      name="description"
+      content="Learn Arabic vocabulary, pronunciation, grammar and practice with spaced repetition. Free, fast and offline-capable."
+    />
+    <meta name="application-name" content="Lisan" />
+    <meta name="theme-color" content="#1769FF" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:site_name" content="Lisan" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Lisan — Learn Arabic, Grow Closer" />
+    <meta
+      property="og:description"
+      content="Learn Arabic vocabulary, pronunciation, grammar and practice with spaced repetition."
+    />
+    <meta property="og:image" content="/brand/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en" />
+    <meta property="og:image:alt" content="Lisan — Learn Arabic, Grow Closer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="/brand/og-image.png" />
+    <meta name="twitter:image:alt" content="Lisan — Learn Arabic, Grow Closer" />
+
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/brand/favicon-16.png" />
+    <link rel="alternate icon" type="image/x-icon" href="/brand/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/brand/favicon.svg" color="#1769FF" />
+    <link rel="canonical" href="https://lisan.app/" />
+
+    <!--
+      Optional-font origins. Warming the connection is all that happens here: no stylesheet and no
+      preload, so a visitor who never changes a font setting downloads nothing from any of them.
+      The faces themselves are fetched by src/styles/webfonts when a preference asks for one —
+      a `<link rel="stylesheet">` to Google would block first paint for everybody, and preloading
+      the Quranic nastaleeq would push 82 kB at people who will never see it.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://verses.quran.foundation" crossorigin />
+
+    <!--
+      Anti-FOUC: resolve the persisted theme (and the accessibility overrides that change layout
+      metrics) and the interface locale before the first paint. Mirrors `THEME_STORAGE_KEY` in
+      src/constants/storageKeys.ts and the locale registry in src/i18n/locales.ts.
+    -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        function read(key) {
+          try {
+            var raw = window.localStorage.getItem(key);
+            if (!raw) return null;
+            var parsed = JSON.parse(raw);
+            return parsed && typeof parsed === 'object' && 'data' in parsed ? parsed.data : null;
+          } catch (error) {
+            return null;
+          }
+        }
+        var settings = read('lisan:settings') || {};
+        var mode = settings.theme || read('lisan:theme') || 'system';
+        var prefersDark =
+          typeof window.matchMedia === 'function' &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme =
+          mode === 'dark' || (mode === 'system' && prefersDark) ? 'dark' : 'light';
+        if (settings.highContrast) root.dataset.contrast = 'high';
+        if (settings.textSize === 'large') root.dataset.textSize = 'large';
+        if (settings.reducedMotion) root.dataset.motion = 'reduced';
+
+        /*
+          Font preferences. Same job as the attributes above — set the token override before the
+          first frame, so a learner who chose Amiri never sees a flash of Noto Naskh. The face
+          itself is still on the network at this point, which is fine: every stack in tokens.css
+          ends in the self-hosted default, so the frame is painted in a real face and re-painted
+          when the chosen one lands. `arabic` lists the non-Naskh values only, mirroring
+          `ARABIC_FONT_OPTIONS`; an unknown value falls back to the app default (IndoPak
+          Nastaleeq — must match `DEFAULT_SETTINGS.arabicFont` in src/constants/app.ts).
+        */
+        var arabic = ['amiri', 'indopak'];
+        var arabicFont = settings.arabicFont || 'indopak';
+        if (arabic.indexOf(arabicFont) !== -1) root.dataset.fontArabic = arabicFont;
+        if (settings.readingFont === 'spectral') root.dataset.fontReading = 'spectral';
+        if (settings.monospaceTransliteration) root.dataset.fontTranslit = 'mono';
+
+        /*
+          Interface locale and direction. `available` lists only the locales whose UI is finished —
+          the same gate `resolveLocale` applies — so a preference for an unfinished locale paints
+          English and stays English. Extend both lists in the commit that flips `uiAvailable`, or the
+          first frame is drawn in the wrong direction.
+        */
+        var available = ['en'];
+        var rightToLeft = ['ar'];
+        var locale = available.indexOf(settings.language) === -1 ? 'en' : settings.language;
+        root.lang = locale;
+        root.dir = rightToLeft.indexOf(locale) === -1 ? 'ltr' : 'rtl';
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 24px; font-family: system-ui, sans-serif">
+        Lisan needs JavaScript to run. Please enable it to continue learning Arabic.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

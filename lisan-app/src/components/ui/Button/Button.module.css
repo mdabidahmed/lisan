@@ -1,0 +1,143 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: inherit;
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-tight);
+  color: var(--color-text-control);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: transparent;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────────── */
+.sm {
+  block-size: var(--control-height-sm);
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.md {
+  block-size: var(--control-height-md);
+  padding-inline: var(--space-5);
+  font-size: var(--font-size-md);
+}
+
+.lg {
+  block-size: var(--control-height-lg);
+  padding-inline: var(--space-6);
+  font-size: var(--font-size-base);
+}
+
+.fullWidth {
+  inline-size: 100%;
+}
+
+/* ── Variants ──────────────────────────────────────────────────────────────── */
+.primary {
+  color: var(--color-primary-contrast);
+  background-color: var(--color-primary);
+  box-shadow: var(--shadow-primary);
+}
+
+.primary:not(:disabled):hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.primary:not(:disabled):active {
+  background-color: var(--color-primary-active);
+  box-shadow: var(--shadow-xs);
+  transform: translateY(0);
+}
+
+.secondary {
+  color: var(--color-text-control);
+  background-color: var(--color-surface-neutral);
+}
+
+.secondary:not(:disabled):hover {
+  background-color: var(--color-surface-blue-gray);
+  transform: translateY(-1px);
+}
+
+.secondary:not(:disabled):active {
+  background-color: var(--color-surface-neutral);
+  transform: translateY(0);
+}
+
+.ghost {
+  color: var(--color-text-control);
+  background-color: transparent;
+}
+
+.ghost:not(:disabled):hover {
+  color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.ghost:not(:disabled):active {
+  background-color: var(--color-surface-selected);
+}
+
+.danger {
+  color: var(--color-primary-contrast);
+  background-color: var(--color-error);
+}
+
+.danger:not(:disabled):hover {
+  background-color: var(--color-error-strong);
+  transform: translateY(-1px);
+}
+
+.danger:not(:disabled):active {
+  box-shadow: var(--shadow-xs);
+  transform: translateY(0);
+}
+
+/* ── States ────────────────────────────────────────────────────────────────── */
+.button:focus-visible {
+  box-shadow: var(--shadow-focus);
+}
+
+/* A loading button is disabled but must keep its variant colours. */
+.button:disabled:not(.loading) {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  background-color: var(--color-surface-neutral);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
+.ghost:disabled:not(.loading) {
+  background-color: transparent;
+}
+
+.loading {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .button:hover,
+  .button:active {
+    transform: none;
+  }
+}

@@ -1,0 +1,104 @@
+.subject {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding-block: var(--space-2) var(--space-6);
+}
+
+.arabic {
+  font-family: var(--font-arabic);
+  font-size: var(--font-size-arabic-xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-arabic);
+  color: var(--color-text-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  cursor: pointer;
+  background-color: var(--color-quiz-option-bg);
+  border: 2px solid var(--color-quiz-option-border);
+  border-radius: var(--radius-lg);
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.tile:hover:not(:disabled) {
+  background-color: var(--color-quiz-option-hover-bg);
+  border-color: var(--color-border-selected);
+}
+
+.tile:disabled {
+  cursor: default;
+}
+
+.shortcut {
+  position: absolute;
+  inset-block-start: var(--space-2);
+  inset-inline-start: var(--space-2);
+  z-index: var(--z-raised);
+  display: grid;
+  inline-size: 22px;
+  block-size: 22px;
+  place-items: center;
+  font-family: var(--font-latin);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-secondary);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-xs);
+}
+
+.result {
+  position: absolute;
+  inset-block-start: var(--space-2);
+  inset-inline-end: var(--space-2);
+  z-index: var(--z-raised);
+  display: grid;
+  inline-size: 26px;
+  block-size: 26px;
+  place-items: center;
+  color: var(--color-text-on-accent);
+  border-radius: var(--radius-circle);
+}
+
+.selected {
+  background-color: var(--color-quiz-selected-bg);
+  border-color: var(--color-quiz-selected-border);
+}
+
+.correct {
+  background-color: var(--color-quiz-correct-bg);
+  border-color: var(--color-quiz-correct-border);
+}
+
+.correct .result {
+  background-color: var(--color-success);
+}
+
+.incorrect {
+  background-color: var(--color-quiz-wrong-bg);
+  border-color: var(--color-quiz-wrong-border);
+}
+
+.incorrect .result {
+  background-color: var(--color-error);
+}
+
+@media (max-width: 599px) {
+  .arabic {
+    font-size: var(--font-size-arabic-lg);
+  }
+}
