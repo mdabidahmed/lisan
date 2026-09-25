@@ -158,4 +158,6 @@ export const routes: RouteObject[] = [
   },
 ];
 
-export const router = createBrowserRouter(routes);
+// `BASE_URL` is '/' locally and '/lisan/' on GitHub Pages (set by `vite.config.ts`'s `base`), so
+// the router's basename always matches wherever the app is actually served from.
+export const router = createBrowserRouter(routes, { basename: import.meta.env.BASE_URL });

@@ -28,7 +28,13 @@ const MANUAL_CHUNKS: readonly ChunkRule[] = [
   ['content', (id) => /\/src\/data\//.test(id)],
 ];
 
+// GitHub Pages serves a project site under /<repo>/, so every built asset path needs that
+// prefix. Local dev and `vite preview` stay at '/' — only the GH Pages deploy workflow sets
+// GH_PAGES=true before building.
+const base = process.env.GH_PAGES === 'true' ? '/lisan/' : '/';
+
 export default defineConfig({
+  base,
   plugins: [
     react(),
     VitePWA({
